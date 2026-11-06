@@ -79,9 +79,12 @@ test('crypto buttons show only the chain name; Solana is purple', () => {
   const crypto = html.slice(html.indexOf('id="crypto-pills"'), html.indexOf('id="skins-pills"'));
   assert.doesNotMatch(crypto, /\$|\b(?:BTC|ETH|SOL|TRX|XLM|AVAX|POL|USDC|USDT|APE)\b|Avalanche|Polygon|Tether|ApeCoin|USD Coin/);
   for (const match of buttons) assert.doesNotMatch(match[0], /<small>|C-Chain|PoS|on Ethereum|·/);
+  assert.match(html, /data-brand="btc"\] \{ background:#f7931a; color:#fff/);
+  assert.match(html, /data-brand="eth"\] \{ background:#627eea; color:#fff/);
   assert.match(html, /data-brand="sol"\] \{ background:#9945ff; color:#fff/);
   assert.match(html, /data-brand="tron"\] \{ background:#ef0027; color:#fff/);
   assert.match(html, /data-brand="stellar"\] \{ background:#000; color:#fff/);
+  assert.match(html, /data-theme="light"\] \.support-grid \.pill\[data-crypto-wallet\] \{ color:#111/);
   assert.match(html, /pill\[data-crypto-wallet\] img \{ filter:brightness\(0\) invert\(1\)/);
   assert.match(html, /data-theme="light"\] \.support-grid \.pill\[data-crypto-wallet\] img \{ filter:brightness\(0\)/);
 });
