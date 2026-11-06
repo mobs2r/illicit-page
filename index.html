@@ -199,20 +199,20 @@
     .support-grid .pill[data-brand="btc"] { background:#f7931a; color:#1a1208; }
     .support-grid .pill[data-brand="eth"] { background:#627eea; color:#0c1224; }
     .support-grid .pill[data-brand="sol"] { background:#9945ff; color:#fff; }
+    .support-grid .pill[data-brand="tron"] { background:#ef0027; color:#fff; }
+    .support-grid .pill[data-brand="stellar"] { background:#fdda24; color:#1a1208; }
     .support-grid button[data-copy-state="copied"] { outline:2px solid var(--text); outline-offset:3px; filter:brightness(1.12); }
     .support-grid button[data-copy-state="error"] { outline:2px solid var(--red); outline-offset:3px; }
-    .support-grid .pill[data-brand="avax"] { background:#e6212f; color:#fff; }
-    .support-grid .pill[data-brand="pol"] { background:#8247e5; color:#fff; }
-    .support-grid .pill[data-brand="usdc"] { background:#0b53bf; color:#fff; }
-    .support-grid .pill[data-brand="usdt"] { background:#26a17b; color:#041d15; }
-    .support-grid .pill[data-brand="ape"] { background:#2159f5; color:#fff; }
+    .support-grid .pill[data-brand="boosty"] { background:#141414; color:#fff; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), inset 0 1px 0 rgba(255,255,255,.45), 0 10px 22px rgba(0,0,0,.16); }
+    .support-grid .pill[data-brand="steam"] { background:#171a21; color:#fff; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), inset 0 1px 0 rgba(255,255,255,.45), 0 10px 22px rgba(0,0,0,.16); }
+    .support-grid .pill[data-brand="supertripland"] { background:#fff; color:#111; box-shadow:inset 0 0 0 1px rgba(0,0,0,.18), inset 0 1px 0 #fff, 0 10px 22px rgba(0,0,0,.16); }
     .support-grid .pill[data-brand="redcross"] { background:#cc0000; color:#fff; }
     .support-grid .pill[data-brand="wwf"] { background:#fff; color:#111; box-shadow:inset 0 0 0 1px rgba(0,0,0,.18), inset 0 1px 0 #fff, 0 10px 22px rgba(0,0,0,.16); }
+    .support-grid .pill[data-brand="salvation-army"] { background:#c80000; color:#fff; }
+    .support-grid .pill[data-brand="extra-life"] { background:#0e7ca2; color:#fff; }
     .support-grid .pill[data-brand="cinch"] { background:#111; color:#fff; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), inset 0 1px 0 rgba(255,255,255,.45), 0 10px 22px rgba(0,0,0,.16); }
     .support-grid .pill[data-brand="rampage"] { background:#f8c705; color:#111; }
-    .support-grid .pill[data-brand="pol"] img { filter:brightness(0) invert(1); }
     .support-grid .pill[data-brand="redcross"] img { padding:3px; background:#fff; }
-    .support-grid .pill[data-brand="avax"] img { padding:2px; background:#fff; }
     .pill-groups { display:flex; flex-direction:column; gap:26px; margin-top:32px; }
     .group-label { margin:0 0 10px; color:var(--muted); font-size:13px; font-weight:400; letter-spacing:.02em; }
     .group-note { margin:0 0 10px; color:var(--copy); font-size:14px; line-height:1.45; }
@@ -508,21 +508,26 @@
             <li><a class="pill" data-brand="bmc" href="https://www.buymeacoffee.com/mobs2r" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/bmc.png" width="22" height="22" alt=""><span>Buy Me a Coffee<small>/mobs2r</small></span></a></li>
             <li><a class="pill" data-brand="github" href="https://github.com/sponsors/mobs2r" target="_blank" rel="noopener noreferrer"><svg class="pill-mark" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.21-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.04-2.2-.82-2.2-.82-.44 1.1-.16 1.92.08 2.12-.51.56-.82 1.27-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.19.45.68.71 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg><span>GitHub<small>/mobs2r</small></span></a></li>
             <li><a class="pill" data-brand="throne" href="https://throne.com/mobs2r" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/throne.png?v=brand-20261019" width="22" height="22" alt=""><span>Throne<small>/mobs2r</small></span></a></li>
+            <li><a class="pill" data-brand="boosty" href="https://boosty.to/mobs2r" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/boosty.png" width="22" height="22" alt=""><span>Boosty<small>/mobs2r</small></span></a></li>
           </ul>
         </section>
         <section class="pill-group" aria-labelledby="crypto-pills">
           <h3 class="group-label" id="crypto-pills">Crypto</h3>
           <ul class="support-grid">
-            <li><button type="button" disabled class="pill" data-brand="btc" data-crypto-wallet="btc"><img src="./assets/icons/btc.svg" width="22" height="22" alt=""><span data-crypto-label>Bitcoin ($BTC)</span></button></li>
-            <li><button type="button" disabled class="pill" data-brand="eth" data-crypto-wallet="eth"><img src="./assets/icons/eth.svg" width="22" height="22" alt=""><span data-crypto-label>Ethereum ($ETH)</span></button></li>
-            <li><button type="button" disabled class="pill" data-brand="sol" data-crypto-wallet="sol"><img src="./assets/icons/sol.svg" width="22" height="22" alt=""><span data-crypto-label>Solana ($SOL)</span></button></li>
-            <li><button type="button" disabled class="pill" data-brand="avax" data-crypto-wallet="avax"><img src="./assets/icons/avax.svg" width="22" height="22" alt=""><span data-crypto-label>Avalanche ($AVAX)</span></button></li>
-            <li><button type="button" disabled class="pill" data-brand="pol" data-crypto-wallet="pol"><img src="./assets/icons/pol.svg" width="22" height="22" alt=""><span data-crypto-label>Polygon ($POL)</span></button></li>
-            <li><button type="button" disabled class="pill" data-brand="usdc" data-crypto-wallet="usdc"><img src="./assets/icons/usdc.svg?v=brand-20261019" width="22" height="22" alt=""><span data-crypto-label>USD Coin ($USDC)</span></button></li>
-            <li><button type="button" disabled class="pill" data-brand="ape" data-crypto-wallet="ape"><img src="./assets/icons/ape.png" width="22" height="22" alt=""><span data-crypto-label>ApeCoin ($APE)</span></button></li>
-            <li><button type="button" disabled class="pill" data-brand="usdt" data-crypto-wallet="usdt"><img src="./assets/icons/usdt.svg?v=brand-20261019" width="22" height="22" alt=""><span data-crypto-label>Tether ($USDT)</span></button></li>
+            <li><button type="button" disabled class="pill" data-brand="btc" data-crypto-wallet="btc"><img src="./assets/icons/btc.svg" width="22" height="22" alt=""><span data-crypto-label>Bitcoin</span></button></li>
+            <li><button type="button" disabled class="pill" data-brand="eth" data-crypto-wallet="eth"><img src="./assets/icons/eth.svg" width="22" height="22" alt=""><span data-crypto-label>Ethereum</span></button></li>
+            <li><button type="button" disabled class="pill" data-brand="sol" data-crypto-wallet="sol"><img src="./assets/icons/sol.svg" width="22" height="22" alt=""><span data-crypto-label>Solana</span></button></li>
+            <li><button type="button" disabled class="pill" data-brand="tron" data-crypto-wallet="tron"><img src="./assets/icons/tron.svg" width="22" height="22" alt=""><span data-crypto-label>Tron</span></button></li>
+            <li><button type="button" disabled class="pill" data-brand="stellar" data-crypto-wallet="stellar"><img src="./assets/icons/stellar.svg" width="22" height="22" alt=""><span data-crypto-label>Stellar</span></button></li>
           </ul>
           <span id="crypto-copy-status" class="sr-only" role="status" aria-live="polite"></span>
+        </section>
+        <section class="pill-group" aria-labelledby="skins-pills">
+          <h3 class="group-label" id="skins-pills">Skins</h3>
+          <ul class="support-grid">
+            <li><a class="pill" data-brand="steam" href="https://steamcommunity.com/tradeoffer/new/?partner=1081247513&amp;token=Qc777wxt" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/steam.png" width="22" height="22" alt=""><span>Steam</span></a></li>
+            <li><a class="pill" data-brand="supertripland" href="https://supertrip.land/profile/mobs2r" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/supertripland.png" width="22" height="22" alt=""><span>SuperTripLand</span></a></li>
+          </ul>
         </section>
         <section class="pill-group" aria-labelledby="partner-pills">
           <h3 class="group-label" id="partner-pills">Partners</h3>
@@ -531,8 +536,10 @@
         <section class="pill-group" aria-labelledby="planet-pills">
           <h3 class="group-label" id="planet-pills">Canada</h3>
           <ul class="support-grid">
-            <li><a class="pill" data-brand="redcross" href="https://www.redcross.ca/donate" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/redcross.png?v=brand-20261019" width="22" height="22" alt=""><span>Red Cross<small>Donate</small></span></a></li>
-            <li><a class="pill" data-brand="wwf" href="https://wwf.ca/donate/" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/wwf.png" width="22" height="22" alt=""><span>WWF<small>Donate</small></span></a></li>
+            <li><a class="pill" data-brand="redcross" href="https://www.redcross.ca/donate" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/redcross.png?v=brand-20261019" width="22" height="22" alt=""><span>Red Cross</span></a></li>
+            <li><a class="pill" data-brand="wwf" href="https://wwf.ca/donate/" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/wwf.png" width="22" height="22" alt=""><span>WWF</span></a></li>
+            <li><a class="pill" data-brand="salvation-army" href="https://salvationarmy.ca/get-involved/donate/" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/salvation-army.png" width="22" height="22" alt=""><span>Salvation Army</span></a></li>
+            <li><a class="pill" data-brand="extra-life" href="https://extra-life.org/donate" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/extra-life.png" width="22" height="22" alt=""><span>Extra Life</span></a></li>
           </ul>
         </section>
       </div>
@@ -565,7 +572,7 @@
   <script type="module">
     import { currencyOptions, formatMoney } from './assets/scale-pricing.mjs?v=major-currencies-3';
     import { groupAnnualCosts } from './assets/scale-groups.mjs?v=1';
-    import { mountDonations } from './assets/donations.mjs?v=copy-wallets-2';
+    import { mountDonations } from './assets/donations.mjs?v=wallets-20261106';
     (() => {
       const openingHash = location.hash;
       let userNavigated = false;

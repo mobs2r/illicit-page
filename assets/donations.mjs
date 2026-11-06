@@ -1,10 +1,14 @@
-const IDS = new Set(['btc', 'eth', 'sol', 'avax', 'pol', 'usdc', 'ape', 'usdt']);
+const IDS = new Set(['btc', 'eth', 'sol', 'tron', 'stellar']);
 const ASSETS = {
   btc: ['btc', 'btc', 'BTC'], eth: ['ethereum', 'evm', 'ETH'], sol: ['sol', 'sol', 'SOL'],
-  avax: ['avalanche', 'evm', 'AVAX'], pol: ['polygon', 'evm', 'POL'],
-  usdc: ['ethereum', 'erc20', 'USDC', '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48'],
-  ape: ['ethereum', 'erc20', 'APE', '0x4d224452801aced8b2f0aebe155379bb5d594381'],
-  usdt: ['ethereum', 'erc20', 'USDT', '0xdac17f958d2ee523a2206206994597c13d831ec7']
+  tron: ['tron', 'tron', 'TRX'], stellar: ['stellar', 'stellar', 'XLM']
+};
+const ADDRESS = {
+  btc: /^bc1[ac-hj-np-z02-9]{20,87}$/,
+  sol: /^[1-9A-HJ-NP-Za-km-z]{32,44}$/,
+  tron: /^T[1-9A-HJ-NP-Za-km-z]{33}$/,
+  stellar: /^G[A-Z2-7]{55}$/,
+  eth: /^0x[0-9a-fA-F]{40}$/
 };
 export function validateWallets(data) {
   if (data?.schema !== 1 || data.rewardsEnabled !== false || !Array.isArray(data.chains) || data.chains.length !== IDS.size) throw Error('Invalid donation wallet configuration');
@@ -13,9 +17,7 @@ export function validateWallets(data) {
     if (!IDS.has(c.id) || seen.has(c.id) || typeof c.name !== 'string' || c.name.length > 80 || typeof c.network !== 'string' || c.network.length > 40) throw Error('Invalid donation network');
     const [network, kind, symbol, token] = ASSETS[c.id];
     if (c.network !== network || c.kind !== kind || c.symbol !== symbol || (c.token || '').toLowerCase() !== (token || '')) throw Error('Mismatched donation asset or network');
-    const valid = c.id === 'btc' ? /^bc1[ac-hj-np-z02-9]{20,87}$/.test(c.address)
-      : c.id === 'sol' ? /^[1-9A-HJ-NP-Za-km-z]{32,44}$/.test(c.address) : /^0x[0-9a-fA-F]{40}$/.test(c.address);
-    if (!valid || c.kind === 'erc20' && !/^0x[0-9a-fA-F]{40}$/.test(c.token)) throw Error('Invalid donation recipient');
+    if (!ADDRESS[c.id].test(c.address)) throw Error('Invalid donation recipient');
     seen.add(c.id);
   }
   return data.chains;

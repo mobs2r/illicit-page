@@ -19,7 +19,7 @@
   document.documentElement.style.cssText += ';overflow:hidden;background:#101318';
   document.body.style.cssText += ';overflow:hidden;margin:0;background:#101318';
   function followHash() {
-    var hash = /^#(?:home|platform|worlds|mods|funds|donate|about|contact|crypto-(?:btc|eth|sol|avax|pol|usdc|ape))$/.test(location.hash) ? location.hash : '';
+    var hash = /^#(?:home|platform|worlds|mods|funds|donate|about|contact|crypto-(?:btc|eth|sol|tron|stellar))$/.test(location.hash) ? location.hash : '';
     // A fragment change starts navigation after mmm.page reparents the iframe.
     var next = site + (revision ? '?rev=' + revision : '') + (hash || '#home');
     if (frame.getAttribute('src') !== next) frame.setAttribute('src', next);

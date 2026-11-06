@@ -46,7 +46,7 @@ test('requested copy is removed, Scale is visible and donations stay on the corp
   assert.doesNotMatch(html, /omerta\.chat\/\?donate/);
   assert.match(html, /id="donate"/);
   assert.doesNotMatch(html, /Email-linked rewards|Future Crypto Ball rewards|For an existing donation receipt|Send only the selected asset|Annual costs in their original billing currencies|The same account, coin, and inventory|id="crypto-wallets"|donation-rewards/);
-  assert.equal([...html.matchAll(/<button type="button" disabled class="pill"[^>]+data-crypto-wallet=/g)].length, 8);
+  assert.equal([...html.matchAll(/<button type="button" disabled class="pill"[^>]+data-crypto-wallet=/g)].length, 5);
   assert.match(html, /id="crypto-copy-status" class="sr-only" role="status"/);
   assert.match(html, /href="mailto:biz@illicit\.page">biz@illicit\.page<\/a>/);
   assert.match(html, /href="mailto:promo@illicit\.page">promo@illicit\.page<\/a>/);
@@ -73,30 +73,37 @@ test('annual cost breakdown renders only service name and right-aligned amount w
   assert.match(html, /\.cost-amount \{[^}]*text-align:right/);
 });
 
-test('crypto buttons show only the asset name and dollar-prefixed ticker; Solana is purple', () => {
+test('crypto buttons show only the chain name; Solana is purple', () => {
   const buttons = [...html.matchAll(/data-crypto-wallet="([a-z]+)"[^>]*>[\s\S]*?<span data-crypto-label>([^<]+)<\/span><\/button>/g)];
-  assert.deepEqual(buttons.map(match => match[2]), ['Bitcoin ($BTC)', 'Ethereum ($ETH)', 'Solana ($SOL)', 'Avalanche ($AVAX)', 'Polygon ($POL)', 'USD Coin ($USDC)', 'ApeCoin ($APE)', 'Tether ($USDT)']);
+  assert.deepEqual(buttons.map(match => match[2]), ['Bitcoin', 'Ethereum', 'Solana', 'Tron', 'Stellar']);
+  const crypto = html.slice(html.indexOf('id="crypto-pills"'), html.indexOf('id="skins-pills"'));
+  assert.doesNotMatch(crypto, /\$|\b(?:BTC|ETH|SOL|TRX|XLM|AVAX|POL|USDC|USDT|APE)\b|Avalanche|Polygon|Tether|ApeCoin|USD Coin/);
   for (const match of buttons) assert.doesNotMatch(match[0], /<small>|C-Chain|PoS|on Ethereum|·/);
   assert.match(html, /data-brand="sol"\] \{ background:#9945ff; color:#fff/);
+  assert.match(html, /data-brand="tron"\] \{ background:#ef0027; color:#fff/);
+  assert.match(html, /data-brand="stellar"\] \{ background:#fdda24; color:#1a1208/);
 });
 
-test('all eight recipients validate and bad or duplicated networks fail closed', async () => {
+test('five recipients validate and bad or duplicated networks fail closed', async () => {
   const { validateWallets } = await import('../assets/donations.mjs');
   const config = JSON.parse(fs.readFileSync(path.join(__dirname, '../assets/donation-wallets.json')));
-  assert.equal(validateWallets(config).length, 8);
-  const tether = config.chains.find(c => c.id === 'usdt');
-  assert.equal(tether.address, config.chains.find(c => c.id === 'eth').address);
-  assert.equal(tether.token, '0xdac17f958d2ee523a2206206994597c13d831ec7');
-  const wrongTether = structuredClone(config); wrongTether.chains.find(c => c.id === 'usdt').token = wrongTether.chains.find(c => c.id === 'usdc').token;
-  assert.throws(() => validateWallets(wrongTether));
+  assert.deepEqual(validateWallets(config).map(chain => chain.name), ['Bitcoin', 'Ethereum', 'Solana', 'Tron', 'Stellar']);
+  const byId = id => config.chains.find(chain => chain.id === id);
+  assert.equal(byId('btc').address, 'bc1qx5kqn0euaqsplq5y6j9fx59xl729hz2shvyafj');
+  assert.equal(byId('eth').address, '0xE7e7f86B917CCE369991d0DA51D61b3e183C9718');
+  assert.equal(byId('sol').address, '4J4Xp9ysBS68r9RGjPSULP8ZwUyUYurzRa4FGKH4YoC4');
+  assert.equal(byId('tron').address, 'TRyBxzD5ojJhNQs2LVL8sFyZ7U9HNRtwEu');
+  assert.equal(byId('stellar').address, 'GCW7MA7DTVRPOZRSUG3YJEG7QWVZ5CGMUTHNGIITPJSRE3MIPPGC2U76');
   const bad = structuredClone(config); bad.chains[0].address = 'not-a-wallet';
   assert.throws(() => validateWallets(bad));
   const duplicate = structuredClone(config); duplicate.chains[1].id = duplicate.chains[0].id;
   assert.throws(() => validateWallets(duplicate));
   const wrongNetwork = structuredClone(config); wrongNetwork.chains[3].network = 'ethereum';
   assert.throws(() => validateWallets(wrongNetwork));
-  const wrongToken = structuredClone(config); wrongToken.chains[5].token = wrongToken.chains[6].token;
-  assert.throws(() => validateWallets(wrongToken));
+  const badTron = structuredClone(config); badTron.chains.find(chain => chain.id === 'tron').address = byId('eth').address;
+  assert.throws(() => validateWallets(badTron));
+  const badStellar = structuredClone(config); badStellar.chains.find(chain => chain.id === 'stellar').address = 'G' + '0'.repeat(55);
+  assert.throws(() => validateWallets(badStellar));
   assert.throws(() => validateWallets({ ...config, rewardsEnabled: true }));
 });
 
@@ -135,14 +142,33 @@ test('manifest and touch icon use the same corporate favicon', () => {
   assert.equal(fs.readFileSync(path.join(__dirname, '../assets/favicon.png')).subarray(1, 4).toString(), 'PNG');
 });
 
-test('remaining button palettes and current USDC mark match their audited sources', () => {
-  for (const [brand, color] of Object.entries({kofi:'ff6433',patreon:'000',twitch:'9146ff',paypal:'002991',streamlabs:'80f5d2',bmc:'ffdd00',throne:'7065f2',rampage:'f8c705',redcross:'cc0000',usdc:'0b53bf'})) {
+test('remaining button palettes match their audited sources', () => {
+  for (const [brand, color] of Object.entries({kofi:'ff6433',patreon:'000',twitch:'9146ff',paypal:'002991',streamlabs:'80f5d2',bmc:'ffdd00',throne:'7065f2',rampage:'f8c705',redcross:'cc0000'})) {
     assert.ok(html.includes(`data-brand="${brand}"] { background:#${color};`), brand);
   }
-  const usdc = fs.readFileSync(path.join(__dirname, '../assets/icons/usdc.svg'), 'utf8');
-  assert.match(usdc, /#0B53BF/);
-  assert.doesNotMatch(html, /data-brand="usdc"\] img \{ filter/);
   assert.match(html, /src="\.\/assets\/icons\/streamlabs.png"/);
+  assert.doesNotMatch(html, /assets\/icons\/(?:usdc|usdt|avax|pol)\.|assets\/icons\/ape\./);
+});
+
+test('Skins follows crypto, Boosty joins support, and Canada charities have no Donate caption', () => {
+  assert.ok(html.indexOf('id="crypto-pills"') < html.indexOf('id="skins-pills"'));
+  assert.ok(html.indexOf('id="skins-pills"') < html.indexOf('id="partner-pills"'));
+  const skins = html.slice(html.indexOf('id="skins-pills"'), html.indexOf('id="partner-pills"'));
+  assert.match(skins, /id="skins-pills">Skins</);
+  assert.match(skins, /data-brand="steam" href="https:\/\/steamcommunity\.com\/tradeoffer\/new\/\?partner=1081247513&amp;token=Qc777wxt" target="_blank" rel="noopener noreferrer"/);
+  assert.match(skins, /<span>Steam<\/span>/);
+  assert.match(skins, /data-brand="supertripland" href="https:\/\/supertrip\.land\/profile\/mobs2r" target="_blank" rel="noopener noreferrer"/);
+  assert.match(skins, /<span>SuperTripLand<\/span>/);
+  assert.match(html, /data-brand="boosty" href="https:\/\/boosty\.to\/mobs2r" target="_blank" rel="noopener noreferrer"/);
+  assert.match(html, /<span>Boosty<small>\/mobs2r<\/small><\/span>/);
+  const canada = html.slice(html.indexOf('id="planet-pills"'), html.indexOf('id="about"'));
+  assert.doesNotMatch(canada, /<small>\s*Donate\s*<\/small>/);
+  assert.match(canada, /<span>Red Cross<\/span>/);
+  assert.match(canada, /<span>WWF<\/span>/);
+  assert.match(canada, /data-brand="salvation-army" href="https:\/\/salvationarmy\.ca\/get-involved\/donate\/"/);
+  assert.match(canada, /<span>Salvation Army<\/span>/);
+  assert.match(canada, /data-brand="extra-life" href="https:\/\/extra-life\.org\/donate"/);
+  assert.match(canada, /<span>Extra Life<\/span>/);
 });
 
 test('domain categories combine into exactly one wheel chunk in every currency', async () => {
