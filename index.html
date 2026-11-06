@@ -42,6 +42,7 @@
       --text:#f3f1ec; --muted:#b7c0ca; --copy:#d5dde6;
       --red:#f1857d; --blue:#88bcf0; --gold:#f1cc86; --green:#92d7b1; --omerta-mark:#a51f24;
       --sans: Questrial, "Segoe UI", system-ui, sans-serif;
+      --mono: ui-monospace, "Cascadia Mono", "Segoe UI Mono", Menlo, Consolas, monospace;
     }
     * { box-sizing:border-box; }
     html { scroll-behavior:smooth; }
@@ -61,6 +62,13 @@
     @keyframes brand-orbit { from { offset-distance:0%; } to { offset-distance:100%; } }
     .brand-copy { display:flex; flex-direction:column; font-size:15px; letter-spacing:.16em; line-height:1.1; text-transform:uppercase; }
     .brand-copy small { margin-top:5px; color:var(--muted); font-size:10px; letter-spacing:.28em; }
+    @media (hover:hover) and (prefers-reduced-motion:no-preference) {
+      .brand:hover .brand-copy, .brand:focus-visible .brand-copy { animation:brand-glitch .42s steps(2, end) 1; }
+    }
+    @keyframes brand-glitch {
+      30% { transform:translateX(-1px); text-shadow:1px 0 #f1857d, -1px 0 #88bcf0; }
+      60% { transform:translateX(1px); text-shadow:-1px 0 #f1857d, 1px 0 #88bcf0; }
+    }
     .header-link,.theme-toggle { display:grid; place-items:center; width:44px; height:44px; padding:0; border:1px solid #6a7d88; border-radius:10px; background:#ffffff06; color:var(--text); line-height:1; flex:0 0 44px; }
     .header-link { text-decoration:none; color:#fff; }
     .header-link svg { display:block; width:21px; height:21px; }
@@ -91,7 +99,7 @@
     .action-primary:hover { background:#d4e7f8; }
     section { scroll-margin-top:100px; }
     .section { padding:72px 0; }
-    .label { color:var(--gold); font-size:12px; letter-spacing:.16em; text-transform:uppercase; }
+    .label { color:var(--gold); font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; }
     .product-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
     .product { display:flex; flex-direction:column; min-width:0; min-height:188px; padding:24px; border:1px solid var(--line); border-radius:16px; background:linear-gradient(145deg,#1c2229,#15191f); }
     .product-top { display:flex; justify-content:space-between; gap:14px; align-items:start; }
@@ -129,7 +137,7 @@
     .mods h2 { margin:0 0 10px; font-size:clamp(32px,4vw,44px); font-weight:400; letter-spacing:-.03em; }
     .mods-intro { margin:0; color:var(--copy); font-size:16px; }
     .mods-group + .mods-group { margin-top:28px; }
-    .mods-group h3,.panel-label { margin:0 0 12px; color:var(--gold); font-size:12px; font-weight:400; letter-spacing:.16em; text-transform:uppercase; }
+    .mods-group h3,.panel-label { margin:0 0 12px; color:var(--gold); font-family:var(--mono); font-size:12px; font-weight:400; letter-spacing:.14em; text-transform:uppercase; }
     .panel-label { margin-top:28px; }
     .mod-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:0; padding:0; list-style:none; }
     .mod-grid a { display:flex; flex-direction:column; gap:6px; min-width:0; padding:18px 20px; border:1px solid var(--line); border-radius:14px; background:linear-gradient(145deg,#1c2229,#15191f); text-decoration:none; transition:border-color .2s ease,transform .2s ease; }
@@ -171,7 +179,7 @@
     .cost-chart [data-slice]:focus-visible .donut-slice { outline:2px solid var(--blue); outline-offset:2px; }
     .cost-list { margin:0; padding:0; border:1px solid var(--line); border-radius:16px; overflow:hidden; background:linear-gradient(145deg,#1c2229,#15191f); }
     .cost-group + .cost-group { border-top:1px solid var(--line); }
-    .cost-group h3 { margin:0; padding:12px 16px; background:#ffffff06; color:var(--muted); font-size:13px; font-weight:400; letter-spacing:.04em; }
+    .cost-group h3 { margin:0; padding:12px 16px; background:#ffffff06; color:var(--muted); font-family:var(--mono); font-size:12px; font-weight:400; letter-spacing:.08em; }
     .cost-rows { margin:0; padding:0; list-style:none; }
     .cost-rows li + li { border-top:1px solid var(--line); }
     .cost-list li { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:10px 16px; }
@@ -221,7 +229,7 @@
     .support-grid .pill[data-brand="extra-life"] img { object-fit:contain; }
     .support-grid .pill[data-brand="salvation-army"] img { padding:2px; background:#fff; }
     .pill-groups { display:flex; flex-direction:column; gap:26px; margin-top:32px; }
-    .group-label { margin:0 0 10px; color:var(--muted); font-size:13px; font-weight:400; letter-spacing:.02em; }
+    .group-label { margin:0 0 10px; color:var(--muted); font-family:var(--mono); font-size:12px; font-weight:400; letter-spacing:.08em; }
     .group-note { margin:0 0 10px; color:var(--copy); font-size:14px; line-height:1.45; }
     .pill-group .support-grid { margin-top:0; }
     .pill-mark { width:25px; height:25px; flex:0 0 auto; display:block; }
@@ -346,8 +354,8 @@
       --glass-shadow:0 16px 40px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.38);
       --glass-sheen:linear-gradient(180deg, rgba(255,255,255,.26), rgba(255,255,255,.05) 26%, transparent 48%);
     }
-    html { background:#0c1016; }
-    html[data-theme="light"] { background:#e7eef6; }
+    html { background:#07090c; }
+    html[data-theme="light"] { background:#e8edf1; }
     html[data-theme="light"] {
       --glass:rgba(255,255,255,.74);
       --glass-strong:rgba(248,250,252,.88);
@@ -356,8 +364,10 @@
       --glass-sheen:linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.28) 28%, transparent 50%);
     }
     body { background:transparent; }
-    .page-texture { position:fixed; z-index:-1; inset:0; pointer-events:none; background-color:#0c1016; background-image:url("./assets/grain.png"), radial-gradient(ellipse at 18% 0%, #1c3d68 0%, transparent 42%), radial-gradient(ellipse at 88% 100%, #3a2348 0%, transparent 38%), linear-gradient(165deg, #0c1016, #151b26 55%, #101820); background-repeat:repeat, no-repeat, no-repeat, no-repeat; background-size:128px 128px, auto, auto, auto; }
-    html[data-theme="light"] .page-texture { background-color:#e7eef6; background-image:url("./assets/grain.png"), radial-gradient(ellipse at 16% 0%, #d5e7fb 0%, transparent 46%), radial-gradient(ellipse at 86% 100%, #f3dceb 0%, transparent 40%), linear-gradient(165deg, #f4f7fb, #e7eef6 60%, #f7f3ee); }
+    .page-texture { position:fixed; z-index:-1; inset:0; pointer-events:none; background-color:#07090c; background-image:url("./assets/grain.png"), radial-gradient(ellipse at 18% 0%, #1a2420 0%, transparent 42%), radial-gradient(ellipse at 90% 100%, #2a181c 0%, transparent 36%), linear-gradient(165deg, #07090c, #10141a 55%, #0c1014); background-repeat:repeat, no-repeat, no-repeat, no-repeat; background-size:128px 128px, auto, auto, auto; }
+    .page-texture::after { content:""; position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse at center, transparent 52%, rgba(0,0,0,.55) 100%), repeating-linear-gradient(to bottom, rgba(0,0,0,.28) 0 1px, transparent 1px 4px); opacity:.2; }
+    html[data-theme="light"] .page-texture { background-color:#e8edf1; background-image:url("./assets/grain.png"), radial-gradient(ellipse at 16% 0%, #d7e0e8 0%, transparent 46%), radial-gradient(ellipse at 86% 100%, #eadfe3 0%, transparent 40%), linear-gradient(165deg, #f2f4f6, #e8edf1 60%, #efeae6); }
+    html[data-theme="light"] .page-texture::after { background:radial-gradient(ellipse at center, transparent 58%, rgba(30,40,50,.28) 100%), repeating-linear-gradient(to bottom, rgba(20,30,40,.16) 0 1px, transparent 1px 4px); opacity:.14; }
     .site-header, .product, .mod-grid a, .cost-list, .cost-total, .action, .currency-switch, .stack li, .header-link, .theme-toggle, .nav-toggle, .illicit-footer {
       background:var(--glass-strong);
       border-color:var(--glass-line);
@@ -592,7 +602,7 @@
         document.documentElement.dataset.theme = theme;
         themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
         themeToggle.setAttribute('aria-pressed', String(theme === 'light'));
-        document.querySelector('meta[name="theme-color"]').content = theme === 'dark' ? '#101318' : '#f5f7fa';
+        document.querySelector('meta[name="theme-color"]').content = theme === 'dark' ? '#07090c' : '#e8edf1';
       };
       applyTheme(document.documentElement.dataset.theme || 'dark');
       themeToggle.addEventListener('click', () => {
@@ -618,20 +628,20 @@
           const h = height;
           const base = context.createLinearGradient(0, 0, w, h);
           if (light) {
-            base.addColorStop(0, '#f5f7fa');
-            base.addColorStop(0.58, '#e7eff9');
-            base.addColorStop(1, '#d9e4f5');
+            base.addColorStop(0, '#f3f5f7');
+            base.addColorStop(0.58, '#e7edf2');
+            base.addColorStop(1, '#dce3ea');
           } else {
-            base.addColorStop(0, '#101318');
-            base.addColorStop(0.58, '#101a2b');
-            base.addColorStop(1, '#09162a');
+            base.addColorStop(0, '#0c0e11');
+            base.addColorStop(0.58, '#12161c');
+            base.addColorStop(1, '#0a0e12');
           }
           context.fillStyle = base;
           context.fillRect(0, 0, w, h);
 
           const fields = light
-            ? [[0.75, 0.18, 0.62, '112,156,225', 0.12], [0.96, 0.8, 0.76, '154,133,211', 0.09], [0.62, 0.64, 0.48, '91,182,211', 0.11]]
-            : [[0.74, 0.13, 0.66, '42,103,186', 0.2], [0.95, 0.79, 0.7, '96,60,155', 0.16], [0.62, 0.58, 0.48, '20,151,190', 0.12]];
+            ? [[0.75, 0.18, 0.62, '112,140,170', 0.1], [0.96, 0.8, 0.76, '150,120,130', 0.07], [0.62, 0.64, 0.48, '90,140,130', 0.08]]
+            : [[0.74, 0.13, 0.55, '70,92,78', 0.14], [0.95, 0.79, 0.6, '120,52,62', 0.1], [0.62, 0.58, 0.42, '40,88,82', 0.08]];
           for (let i = 0; i < fields.length; i++) {
             const [x, y, radius, colour, alpha] = fields[i];
             const drift = Math.sin(time * 0.13 + i * 2.1) * 0.055;
@@ -650,10 +660,10 @@
           };
           for (let layer = 2; layer >= 0; layer--) {
             const ribbon = context.createLinearGradient(w * 0.33, 0, w, h);
-            const tint = light ? ['76,140,201', '102,114,194', '78,173,194'][layer] : ['62,140,229', '125,92,220', '48,185,211'][layer];
+            const tint = light ? ['76,120,150', '120,100,110', '78,140,130'][layer] : ['90,112,120', '140,92,100', '70,120,112'][layer];
             ribbon.addColorStop(0, `rgba(${tint},0)`);
-            ribbon.addColorStop(0.45, `rgba(${tint},${light ? 0.09 : 0.12})`);
-            ribbon.addColorStop(1, `rgba(${tint},${light ? 0.2 : 0.23})`);
+            ribbon.addColorStop(0.45, `rgba(${tint},${light ? 0.08 : 0.09})`);
+            ribbon.addColorStop(1, `rgba(${tint},${light ? 0.16 : 0.16})`);
             context.beginPath();
             for (let x = 0; x <= w + 16; x += 16) {
               const y = waveY(x, layer);
@@ -671,13 +681,13 @@
             const layer = strand % 3;
             const offset = (strand / strandCount - 0.5) * 0.26;
             const colour = light
-              ? ['54,112,178', '91,91,172', '44,142,170'][layer]
-              : ['104,179,255', '172,138,255', '81,215,231'][layer];
+              ? ['54,100,130', '110,90,100', '50,120,112'][layer]
+              : ['130,156,168', '176,130,138', '110,160,148'][layer];
             const fade = context.createLinearGradient(w * 0.23, 0, w, 0);
             fade.addColorStop(0, `rgba(${colour},0)`);
-            fade.addColorStop(0.43, `rgba(${colour},${light ? 0.16 : 0.23})`);
-            fade.addColorStop(0.8, `rgba(${colour},${light ? 0.35 : 0.48})`);
-            fade.addColorStop(1, `rgba(${colour},${light ? 0.08 : 0.15})`);
+            fade.addColorStop(0.43, `rgba(${colour},${light ? 0.14 : 0.16})`);
+            fade.addColorStop(0.8, `rgba(${colour},${light ? 0.28 : 0.3})`);
+            fade.addColorStop(1, `rgba(${colour},${light ? 0.07 : 0.1})`);
             context.beginPath();
             for (let x = 0; x <= w + 10; x += 10) {
               const y = waveY(x, layer, offset) + Math.sin(x / w * 6.5 + strand * 0.53 + time * 0.11) * h * 0.012;
