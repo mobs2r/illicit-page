@@ -16,8 +16,10 @@ favicon pixels. Ko-fi/Patreon/Streamlabs/Cinch/Rampage/WWF were downloaded from
 their own published asset links; PayPal/Throne/Red Cross are cached site favicons
 from Google's s2 service. All are served locally, not requested by visitors.
 Crypto buttons name Bitcoin, Ethereum, Solana, Tron, and Stellar only.
-Tron's mark is the CC0 cryptocurrency-icons logo. Stellar's mark is the CC0
-simple-icons Stellar path.
+Bitcoin, Ethereum, and Solana keep their existing monochrome marks. Tron uses
+the official triangular icon from the Tron.network logo. Stellar uses the
+historical rocket mark. All five are forced white in dark mode and black in
+light mode, the same idea as the Wallstreet Common mark following the theme.
 
 Scale groups explicit domain rows separately from services in the same board.
 The wheel has one Domains segment; it sums the displayed per-domain budgets

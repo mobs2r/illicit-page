@@ -81,7 +81,9 @@ test('crypto buttons show only the chain name; Solana is purple', () => {
   for (const match of buttons) assert.doesNotMatch(match[0], /<small>|C-Chain|PoS|on Ethereum|·/);
   assert.match(html, /data-brand="sol"\] \{ background:#9945ff; color:#fff/);
   assert.match(html, /data-brand="tron"\] \{ background:#ef0027; color:#fff/);
-  assert.match(html, /data-brand="stellar"\] \{ background:#fdda24; color:#1a1208/);
+  assert.match(html, /data-brand="stellar"\] \{ background:#000; color:#fff/);
+  assert.match(html, /pill\[data-crypto-wallet\] img \{ filter:brightness\(0\) invert\(1\)/);
+  assert.match(html, /data-theme="light"\] \.support-grid \.pill\[data-crypto-wallet\] img \{ filter:brightness\(0\)/);
 });
 
 test('five recipients validate and bad or duplicated networks fail closed', async () => {
