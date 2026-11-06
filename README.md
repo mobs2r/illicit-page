@@ -107,6 +107,10 @@ The dropped EVM entries shared the Ethereum address, which remains only on
 Ethereum. Partners appear before Canada; Lis-Skins and XPlay.gg both use the
 owner-supplied MOBS2R code and link to their homepages. The Canada group
 names Red Cross, WWF, Salvation Army, and Extra Life without a Donate caption.
+The Salvation Army mark is the red shield cropped from the official
+salvationarmy.ca header SVG. Extra Life uses the official yellow controller
+mark from extra-life.org. Both stay full colour, like the Red Cross cross
+and the WWF panda.
 Support includes Boosty at https://boosty.to/mobs2r. Skins, directly below
 crypto, links Steam and SuperTripLand.
 
