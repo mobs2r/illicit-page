@@ -43,6 +43,8 @@ All code lives on GitHub under [@mobs2r](https://github.com/mobs2r).
 | `mmm-embed.html` | The snippet pasted into mmm.page, so illicit.page shows the published site. |
 | `manifest.webmanifest` | Install metadata for the page. |
 | `builds.json` | The live Omerta and Atlantis build numbers shown on the world cards. GitHub Actions refreshes it hourly. |
+| `assets/fonts/` | Self-hosted Questrial (SIL OFL 1.1, see `OFL.txt`); the page loads no third-party CSS or fonts. |
+| `assets/mods/` | Workshop previews. Each has a `.webp` served through `<picture>`, with the original as fallback. |
 | `support/` | Tests and maintenance scripts. |
 
 ## Publishing
