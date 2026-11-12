@@ -11,6 +11,18 @@ const worlds = {
   atlantis: 'https://ill.up.railway.app/health'
 };
 
+// Lets the published page recognise itself as current, so visitors are not
+// redirected to ?rev= on every load. Only touches the copied artifact.
+function stampPageBuild(dir, commit) {
+  const page = path.join(dir, 'index.html');
+  if (!/^[a-f0-9]{7,40}$/i.test(String(commit || '')) || !fs.existsSync(page)) return false;
+  const html = fs.readFileSync(page, 'utf8').replace(/\s*<meta name="illicit-build" content="[^"]*">/, '');
+  const stamped = html.replace(/(<meta charset="utf-8">)/i, `$1\n  <meta name="illicit-build" content="${commit.toLowerCase()}">`);
+  if (stamped === html) return false;
+  fs.writeFileSync(page, stamped);
+  return true;
+}
+
 async function main() {
   const builds = { ...fallback };
   const siteCommit = String(process.env.GITHUB_SHA || '');
@@ -31,10 +43,15 @@ async function main() {
   }));
   fs.mkdirSync(outputDir, { recursive: true });
   fs.writeFileSync(path.join(outputDir, 'builds.json'), `${JSON.stringify(builds, null, 2)}\n`);
+  stampPageBuild(outputDir, builds.platform);
   console.log(`Published build labels: ${Object.entries(builds).map(([name, hash]) => `${name} #${hash.slice(0, 7)}`).join(', ')}`);
 }
 
-main().catch(error => {
-  console.error(error);
-  process.exitCode = 1;
-});
+if (require.main === module) {
+  main().catch(error => {
+    console.error(error);
+    process.exitCode = 1;
+  });
+}
+
+module.exports = { stampPageBuild };

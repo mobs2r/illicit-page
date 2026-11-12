@@ -53,6 +53,12 @@ All code lives on GitHub under [@mobs2r](https://github.com/mobs2r).
    2. Paste the contents of `mmm-embed.html` into it.
    3. Publish.
 
+The deploy stamps the published copy of `index.html` with
+`<meta name="illicit-build">` (the site commit). A current page never reloads
+itself; a stale cached copy reloads once with `?rev=<commit>`, and a newer build
+found while someone is reading waits until the tab is hidden. The embed's
+12-character `?rev=` is accepted as current.
+
 The embed only frames the GitHub Pages site. Updates to `index.html` show up on illicit.page without touching mmm.page again. Change `mmm-embed.html` only if the frame itself should change, then paste it into mmm.page again.
 
 The public embed uses one viewport-sized iframe, outside mmm.page's transformed
