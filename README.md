@@ -64,11 +64,25 @@ fullscreen mounting in `?editing` so the mmm.page editor remains accessible.
 It forwards supported section hashes and sets the outer tab icon to the hosted
 corporate PNG. Keep the host background `#101318` as a loading fallback.
 
+## Security policy
+
+GitHub Pages cannot send response headers. During the deploy,
+`support/refresh-builds.cjs` calls `support/harden-html.cjs`, which adds a `Content-Security-Policy` and
+`referrer` `<meta>` to the published copy of `index.html`. Inline scripts are
+allowed by SHA-256 hashes computed at deploy time, so editing them needs no
+manual update. Keep JavaScript out of `on*=""` attributes and `javascript:` URLs,
+which the policy blocks. Load scripts, data and images from this origin only.
+
 ## Checks
 
 ```sh
 node --test support/*.test.cjs
 ```
+
+`support/ci/checks.yml` is a ready-made pull-request workflow that runs these
+tests and builds the hardened artifact. To enable it, move it to
+`.github/workflows/`. Pushing workflow files needs a token with the `workflow`
+scope.
 
 ## Scale and donations
 
