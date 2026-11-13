@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "source": "https://illicit.up.railway.app/api/public/crypto-donations/config",
-  "verifiedOn": "2026-10-18",
+  "verifiedOn": "2026-11-06",
   "rewardsEnabled": false,
   "chains": [
     {
@@ -29,49 +29,20 @@
       "address": "4J4Xp9ysBS68r9RGjPSULP8ZwUyUYurzRa4FGKH4YoC4"
     },
     {
-      "id": "avax",
-      "name": "Avalanche C-Chain",
-      "symbol": "AVAX",
-      "network": "avalanche",
-      "kind": "evm",
-      "address": "0xE7e7f86B917CCE369991d0DA51D61b3e183C9718"
+      "id": "tron",
+      "name": "Tron",
+      "symbol": "TRX",
+      "network": "tron",
+      "kind": "tron",
+      "address": "TRyBxzD5ojJhNQs2LVL8sFyZ7U9HNRtwEu"
     },
     {
-      "id": "pol",
-      "name": "Polygon PoS",
-      "symbol": "POL",
-      "network": "polygon",
-      "kind": "evm",
-      "address": "0xE7e7f86B917CCE369991d0DA51D61b3e183C9718"
-    },
-    {
-      "id": "usdc",
-      "name": "USDC on Ethereum",
-      "symbol": "USDC",
-      "network": "ethereum",
-      "kind": "erc20",
-      "address": "0xE7e7f86B917CCE369991d0DA51D61b3e183C9718",
-      "token": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48"
-    },
-    {
-      "id": "ape",
-      "name": "ApeCoin on Ethereum",
-      "symbol": "APE",
-      "network": "ethereum",
-      "kind": "erc20",
-      "address": "0xE7e7f86B917CCE369991d0DA51D61b3e183C9718",
-      "token": "0x4d224452801aced8b2f0aebe155379bb5d594381"
-    },
-    {
-      "id": "usdt",
-      "name": "Tether on Ethereum",
-      "symbol": "USDT",
-      "network": "ethereum",
-      "kind": "erc20",
-      "address": "0xE7e7f86B917CCE369991d0DA51D61b3e183C9718",
-      "token": "0xdac17f958d2ee523a2206206994597c13d831ec7",
-      "tokenSource": "https://tether.to/en/supported-protocols/",
-      "recipientSource": "Existing Ethereum donation wallet"
+      "id": "stellar",
+      "name": "Stellar",
+      "symbol": "XLM",
+      "network": "stellar",
+      "kind": "stellar",
+      "address": "GCW7MA7DTVRPOZRSUG3YJEG7QWVZ5CGMUTHNGIITPJSRE3MIPPGC2U76"
     }
   ]
 }

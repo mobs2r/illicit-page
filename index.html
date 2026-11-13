@@ -42,6 +42,7 @@
       --text:#f3f1ec; --muted:#b7c0ca; --copy:#d5dde6;
       --red:#f1857d; --blue:#88bcf0; --gold:#f1cc86; --green:#92d7b1; --omerta-mark:#a51f24;
       --sans: Questrial, "Segoe UI", system-ui, sans-serif;
+      --mono: ui-monospace, "Cascadia Mono", "Segoe UI Mono", Menlo, Consolas, monospace;
     }
     * { box-sizing:border-box; }
     html { scroll-behavior:smooth; }
@@ -61,6 +62,13 @@
     @keyframes brand-orbit { from { offset-distance:0%; } to { offset-distance:100%; } }
     .brand-copy { display:flex; flex-direction:column; font-size:15px; letter-spacing:.16em; line-height:1.1; text-transform:uppercase; }
     .brand-copy small { margin-top:5px; color:var(--muted); font-size:10px; letter-spacing:.28em; }
+    @media (hover:hover) and (prefers-reduced-motion:no-preference) {
+      .brand:hover .brand-copy, .brand:focus-visible .brand-copy { animation:brand-glitch .42s steps(2, end) 1; }
+    }
+    @keyframes brand-glitch {
+      30% { transform:translateX(-1px); text-shadow:1px 0 #f1857d, -1px 0 #88bcf0; }
+      60% { transform:translateX(1px); text-shadow:-1px 0 #f1857d, 1px 0 #88bcf0; }
+    }
     .header-link,.theme-toggle { display:grid; place-items:center; width:44px; height:44px; padding:0; border:1px solid #6a7d88; border-radius:10px; background:#ffffff06; color:var(--text); line-height:1; flex:0 0 44px; }
     .header-link { text-decoration:none; color:#fff; }
     .header-link svg { display:block; width:21px; height:21px; }
@@ -91,7 +99,7 @@
     .action-primary:hover { background:#d4e7f8; }
     section { scroll-margin-top:100px; }
     .section { padding:72px 0; }
-    .label { color:var(--gold); font-size:12px; letter-spacing:.16em; text-transform:uppercase; }
+    .label { color:var(--gold); font-family:var(--mono); font-size:12px; letter-spacing:.14em; text-transform:uppercase; }
     .product-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
     .product { display:flex; flex-direction:column; min-width:0; min-height:188px; padding:24px; border:1px solid var(--line); border-radius:16px; background:linear-gradient(145deg,#1c2229,#15191f); }
     .product-top { display:flex; justify-content:space-between; gap:14px; align-items:start; }
@@ -129,7 +137,7 @@
     .mods h2 { margin:0 0 10px; font-size:clamp(32px,4vw,44px); font-weight:400; letter-spacing:-.03em; }
     .mods-intro { margin:0; color:var(--copy); font-size:16px; }
     .mods-group + .mods-group { margin-top:28px; }
-    .mods-group h3,.panel-label { margin:0 0 12px; color:var(--gold); font-size:12px; font-weight:400; letter-spacing:.16em; text-transform:uppercase; }
+    .mods-group h3,.panel-label { margin:0 0 12px; color:var(--gold); font-family:var(--mono); font-size:12px; font-weight:400; letter-spacing:.14em; text-transform:uppercase; }
     .panel-label { margin-top:28px; }
     .mod-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:0; padding:0; list-style:none; }
     .mod-grid a { display:flex; flex-direction:column; gap:6px; min-width:0; padding:18px 20px; border:1px solid var(--line); border-radius:14px; background:linear-gradient(145deg,#1c2229,#15191f); text-decoration:none; transition:border-color .2s ease,transform .2s ease; }
@@ -171,7 +179,7 @@
     .cost-chart [data-slice]:focus-visible .donut-slice { outline:2px solid var(--blue); outline-offset:2px; }
     .cost-list { margin:0; padding:0; border:1px solid var(--line); border-radius:16px; overflow:hidden; background:linear-gradient(145deg,#1c2229,#15191f); }
     .cost-group + .cost-group { border-top:1px solid var(--line); }
-    .cost-group h3 { margin:0; padding:12px 16px; background:#ffffff06; color:var(--muted); font-size:13px; font-weight:400; letter-spacing:.04em; }
+    .cost-group h3 { margin:0; padding:12px 16px; background:#ffffff06; color:var(--muted); font-family:var(--mono); font-size:12px; font-weight:400; letter-spacing:.08em; }
     .cost-rows { margin:0; padding:0; list-style:none; }
     .cost-rows li + li { border-top:1px solid var(--line); }
     .cost-list li { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:10px 16px; }
@@ -196,25 +204,32 @@
     .support-grid .pill[data-brand="bmc"] { background:#ffdd00; color:#1a1400; }
     .support-grid .pill[data-brand="github"] { background:#181717; color:#fff; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), inset 0 1px 0 rgba(255,255,255,.45), 0 10px 22px rgba(0,0,0,.16); }
     .support-grid .pill[data-brand="throne"] { background:#7065f2; color:#0e0b1a; }
-    .support-grid .pill[data-brand="btc"] { background:#f7931a; color:#1a1208; }
-    .support-grid .pill[data-brand="eth"] { background:#627eea; color:#0c1224; }
+    .support-grid .pill[data-brand="btc"] { background:#f7931a; color:#fff; }
+    .support-grid .pill[data-brand="eth"] { background:#627eea; color:#fff; }
     .support-grid .pill[data-brand="sol"] { background:#9945ff; color:#fff; }
+    .support-grid .pill[data-brand="tron"] { background:#ef0027; color:#fff; }
+    .support-grid .pill[data-brand="stellar"] { background:#000; color:#fff; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), inset 0 1px 0 rgba(255,255,255,.45), 0 10px 22px rgba(0,0,0,.16); }
+    .support-grid .pill[data-crypto-wallet] img { filter:brightness(0) invert(1); }
+    :root[data-theme="light"] .support-grid .pill[data-crypto-wallet] { color:#111; }
+    :root[data-theme="light"] .support-grid .pill[data-crypto-wallet] img { filter:brightness(0); }
+    :root[data-theme="light"] .support-grid .pill[data-brand="stellar"] { background:#fff; color:#111; box-shadow:inset 0 0 0 1px rgba(0,0,0,.18), inset 0 1px 0 #fff, 0 10px 22px rgba(0,0,0,.12); }
     .support-grid button[data-copy-state="copied"] { outline:2px solid var(--text); outline-offset:3px; filter:brightness(1.12); }
     .support-grid button[data-copy-state="error"] { outline:2px solid var(--red); outline-offset:3px; }
-    .support-grid .pill[data-brand="avax"] { background:#e6212f; color:#fff; }
-    .support-grid .pill[data-brand="pol"] { background:#8247e5; color:#fff; }
-    .support-grid .pill[data-brand="usdc"] { background:#0b53bf; color:#fff; }
-    .support-grid .pill[data-brand="usdt"] { background:#26a17b; color:#041d15; }
-    .support-grid .pill[data-brand="ape"] { background:#2159f5; color:#fff; }
+    .support-grid .pill[data-brand="boosty"] { background:#141414; color:#fff; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), inset 0 1px 0 rgba(255,255,255,.45), 0 10px 22px rgba(0,0,0,.16); }
+    .support-grid .pill[data-brand="steam"] { background:#171a21; color:#fff; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), inset 0 1px 0 rgba(255,255,255,.45), 0 10px 22px rgba(0,0,0,.16); }
+    .support-grid .pill[data-brand="supertripland"] { background:#fff; color:#111; box-shadow:inset 0 0 0 1px rgba(0,0,0,.18), inset 0 1px 0 #fff, 0 10px 22px rgba(0,0,0,.16); }
     .support-grid .pill[data-brand="redcross"] { background:#cc0000; color:#fff; }
     .support-grid .pill[data-brand="wwf"] { background:#fff; color:#111; box-shadow:inset 0 0 0 1px rgba(0,0,0,.18), inset 0 1px 0 #fff, 0 10px 22px rgba(0,0,0,.16); }
+    .support-grid .pill[data-brand="salvation-army"] { background:#cc0000; color:#fff; }
+    .support-grid .pill[data-brand="extra-life"] { background:#0e7ca2; color:#fff; }
     .support-grid .pill[data-brand="cinch"] { background:#111; color:#fff; box-shadow:inset 0 0 0 1px rgba(255,255,255,.28), inset 0 1px 0 rgba(255,255,255,.45), 0 10px 22px rgba(0,0,0,.16); }
     .support-grid .pill[data-brand="rampage"] { background:#f8c705; color:#111; }
-    .support-grid .pill[data-brand="pol"] img { filter:brightness(0) invert(1); }
     .support-grid .pill[data-brand="redcross"] img { padding:3px; background:#fff; }
-    .support-grid .pill[data-brand="avax"] img { padding:2px; background:#fff; }
+    .support-grid .pill[data-brand="salvation-army"] img,
+    .support-grid .pill[data-brand="extra-life"] img { object-fit:contain; }
+    .support-grid .pill[data-brand="salvation-army"] img { padding:2px; background:#fff; }
     .pill-groups { display:flex; flex-direction:column; gap:26px; margin-top:32px; }
-    .group-label { margin:0 0 10px; color:var(--muted); font-size:13px; font-weight:400; letter-spacing:.02em; }
+    .group-label { margin:0 0 10px; color:var(--muted); font-family:var(--mono); font-size:12px; font-weight:400; letter-spacing:.08em; }
     .group-note { margin:0 0 10px; color:var(--copy); font-size:14px; line-height:1.45; }
     .pill-group .support-grid { margin-top:0; }
     .pill-mark { width:25px; height:25px; flex:0 0 auto; display:block; }
@@ -339,8 +354,8 @@
       --glass-shadow:0 16px 40px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.38);
       --glass-sheen:linear-gradient(180deg, rgba(255,255,255,.26), rgba(255,255,255,.05) 26%, transparent 48%);
     }
-    html { background:#0c1016; }
-    html[data-theme="light"] { background:#e7eef6; }
+    html { background:#07090c; }
+    html[data-theme="light"] { background:#e8edf1; }
     html[data-theme="light"] {
       --glass:rgba(255,255,255,.74);
       --glass-strong:rgba(248,250,252,.88);
@@ -349,8 +364,10 @@
       --glass-sheen:linear-gradient(180deg, rgba(255,255,255,.9), rgba(255,255,255,.28) 28%, transparent 50%);
     }
     body { background:transparent; }
-    .page-texture { position:fixed; z-index:-1; inset:0; pointer-events:none; background-color:#0c1016; background-image:url("./assets/grain.png"), radial-gradient(ellipse at 18% 0%, #1c3d68 0%, transparent 42%), radial-gradient(ellipse at 88% 100%, #3a2348 0%, transparent 38%), linear-gradient(165deg, #0c1016, #151b26 55%, #101820); background-repeat:repeat, no-repeat, no-repeat, no-repeat; background-size:128px 128px, auto, auto, auto; }
-    html[data-theme="light"] .page-texture { background-color:#e7eef6; background-image:url("./assets/grain.png"), radial-gradient(ellipse at 16% 0%, #d5e7fb 0%, transparent 46%), radial-gradient(ellipse at 86% 100%, #f3dceb 0%, transparent 40%), linear-gradient(165deg, #f4f7fb, #e7eef6 60%, #f7f3ee); }
+    .page-texture { position:fixed; z-index:-1; inset:0; pointer-events:none; background-color:#07090c; background-image:url("./assets/grain.png"), radial-gradient(ellipse at 18% 0%, #1a2420 0%, transparent 42%), radial-gradient(ellipse at 90% 100%, #2a181c 0%, transparent 36%), linear-gradient(165deg, #07090c, #10141a 55%, #0c1014); background-repeat:repeat, no-repeat, no-repeat, no-repeat; background-size:128px 128px, auto, auto, auto; }
+    .page-texture::after { content:""; position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse at center, transparent 52%, rgba(0,0,0,.55) 100%), repeating-linear-gradient(to bottom, rgba(0,0,0,.28) 0 1px, transparent 1px 4px); opacity:.2; }
+    html[data-theme="light"] .page-texture { background-color:#e8edf1; background-image:url("./assets/grain.png"), radial-gradient(ellipse at 16% 0%, #d7e0e8 0%, transparent 46%), radial-gradient(ellipse at 86% 100%, #eadfe3 0%, transparent 40%), linear-gradient(165deg, #f2f4f6, #e8edf1 60%, #efeae6); }
+    html[data-theme="light"] .page-texture::after { background:radial-gradient(ellipse at center, transparent 58%, rgba(30,40,50,.28) 100%), repeating-linear-gradient(to bottom, rgba(20,30,40,.16) 0 1px, transparent 1px 4px); opacity:.14; }
     .site-header, .product, .mod-grid a, .cost-list, .cost-total, .action, .currency-switch, .stack li, .header-link, .theme-toggle, .nav-toggle, .illicit-footer {
       background:var(--glass-strong);
       border-color:var(--glass-line);
@@ -508,21 +525,26 @@
             <li><a class="pill" data-brand="bmc" href="https://www.buymeacoffee.com/mobs2r" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/bmc.png" width="22" height="22" alt=""><span>Buy Me a Coffee<small>/mobs2r</small></span></a></li>
             <li><a class="pill" data-brand="github" href="https://github.com/sponsors/mobs2r" target="_blank" rel="noopener noreferrer"><svg class="pill-mark" viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.21-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.04-2.2-.82-2.2-.82-.44 1.1-.16 1.92.08 2.12-.51.56-.82 1.27-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.19.45.68.71 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg><span>GitHub<small>/mobs2r</small></span></a></li>
             <li><a class="pill" data-brand="throne" href="https://throne.com/mobs2r" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/throne.png?v=brand-20261019" width="22" height="22" alt=""><span>Throne<small>/mobs2r</small></span></a></li>
+            <li><a class="pill" data-brand="boosty" href="https://boosty.to/mobs2r" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/boosty.png" width="22" height="22" alt=""><span>Boosty<small>/mobs2r</small></span></a></li>
           </ul>
         </section>
         <section class="pill-group" aria-labelledby="crypto-pills">
           <h3 class="group-label" id="crypto-pills">Crypto</h3>
           <ul class="support-grid">
-            <li><button type="button" disabled class="pill" data-brand="btc" data-crypto-wallet="btc"><img src="./assets/icons/btc.svg" width="22" height="22" alt=""><span data-crypto-label>Bitcoin ($BTC)</span></button></li>
-            <li><button type="button" disabled class="pill" data-brand="eth" data-crypto-wallet="eth"><img src="./assets/icons/eth.svg" width="22" height="22" alt=""><span data-crypto-label>Ethereum ($ETH)</span></button></li>
-            <li><button type="button" disabled class="pill" data-brand="sol" data-crypto-wallet="sol"><img src="./assets/icons/sol.svg" width="22" height="22" alt=""><span data-crypto-label>Solana ($SOL)</span></button></li>
-            <li><button type="button" disabled class="pill" data-brand="avax" data-crypto-wallet="avax"><img src="./assets/icons/avax.svg" width="22" height="22" alt=""><span data-crypto-label>Avalanche ($AVAX)</span></button></li>
-            <li><button type="button" disabled class="pill" data-brand="pol" data-crypto-wallet="pol"><img src="./assets/icons/pol.svg" width="22" height="22" alt=""><span data-crypto-label>Polygon ($POL)</span></button></li>
-            <li><button type="button" disabled class="pill" data-brand="usdc" data-crypto-wallet="usdc"><img src="./assets/icons/usdc.svg?v=brand-20261019" width="22" height="22" alt=""><span data-crypto-label>USD Coin ($USDC)</span></button></li>
-            <li><button type="button" disabled class="pill" data-brand="ape" data-crypto-wallet="ape"><img src="./assets/icons/ape.png" width="22" height="22" alt=""><span data-crypto-label>ApeCoin ($APE)</span></button></li>
-            <li><button type="button" disabled class="pill" data-brand="usdt" data-crypto-wallet="usdt"><img src="./assets/icons/usdt.svg?v=brand-20261019" width="22" height="22" alt=""><span data-crypto-label>Tether ($USDT)</span></button></li>
+            <li><button type="button" disabled class="pill" data-brand="btc" data-crypto-wallet="btc"><img src="./assets/icons/btc.svg" width="22" height="22" alt=""><span data-crypto-label>Bitcoin</span></button></li>
+            <li><button type="button" disabled class="pill" data-brand="eth" data-crypto-wallet="eth"><img src="./assets/icons/eth.svg" width="22" height="22" alt=""><span data-crypto-label>Ethereum</span></button></li>
+            <li><button type="button" disabled class="pill" data-brand="sol" data-crypto-wallet="sol"><img src="./assets/icons/sol.svg" width="22" height="22" alt=""><span data-crypto-label>Solana</span></button></li>
+            <li><button type="button" disabled class="pill" data-brand="tron" data-crypto-wallet="tron"><img src="./assets/icons/tron.svg" width="22" height="22" alt=""><span data-crypto-label>Tron</span></button></li>
+            <li><button type="button" disabled class="pill" data-brand="stellar" data-crypto-wallet="stellar"><img src="./assets/icons/stellar.svg" width="22" height="22" alt=""><span data-crypto-label>Stellar</span></button></li>
           </ul>
           <span id="crypto-copy-status" class="sr-only" role="status" aria-live="polite"></span>
+        </section>
+        <section class="pill-group" aria-labelledby="skins-pills">
+          <h3 class="group-label" id="skins-pills">Skins</h3>
+          <ul class="support-grid">
+            <li><a class="pill" data-brand="steam" href="https://steamcommunity.com/tradeoffer/new/?partner=1081247513&amp;token=Qc777wxt" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/steam.png" width="22" height="22" alt=""><span>Steam</span></a></li>
+            <li><a class="pill" data-brand="supertripland" href="https://supertrip.land/profile/mobs2r" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/supertripland.png" width="22" height="22" alt=""><span>SuperTripLand</span></a></li>
+          </ul>
         </section>
         <section class="pill-group" aria-labelledby="partner-pills">
           <h3 class="group-label" id="partner-pills">Partners</h3>
@@ -531,8 +553,10 @@
         <section class="pill-group" aria-labelledby="planet-pills">
           <h3 class="group-label" id="planet-pills">Canada</h3>
           <ul class="support-grid">
-            <li><a class="pill" data-brand="redcross" href="https://www.redcross.ca/donate" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/redcross.png?v=brand-20261019" width="22" height="22" alt=""><span>Red Cross<small>Donate</small></span></a></li>
-            <li><a class="pill" data-brand="wwf" href="https://wwf.ca/donate/" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/wwf.png" width="22" height="22" alt=""><span>WWF<small>Donate</small></span></a></li>
+            <li><a class="pill" data-brand="redcross" href="https://www.redcross.ca/donate" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/redcross.png?v=brand-20261019" width="22" height="22" alt=""><span>Red Cross</span></a></li>
+            <li><a class="pill" data-brand="wwf" href="https://wwf.ca/donate/" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/wwf.png" width="22" height="22" alt=""><span>WWF</span></a></li>
+            <li><a class="pill" data-brand="salvation-army" href="https://salvationarmy.ca/get-involved/donate/" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/salvation-army.svg" width="22" height="22" alt=""><span>Salvation Army</span></a></li>
+            <li><a class="pill" data-brand="extra-life" href="https://extra-life.org/donate" target="_blank" rel="noopener noreferrer"><img src="./assets/icons/extra-life.svg" width="22" height="22" alt=""><span>Extra Life</span></a></li>
           </ul>
         </section>
       </div>
@@ -565,7 +589,7 @@
   <script type="module">
     import { currencyOptions, formatMoney } from './assets/scale-pricing.mjs?v=major-currencies-3';
     import { groupAnnualCosts } from './assets/scale-groups.mjs?v=1';
-    import { mountDonations } from './assets/donations.mjs?v=copy-wallets-2';
+    import { mountDonations } from './assets/donations.mjs?v=wallets-20261106';
     (() => {
       const openingHash = location.hash;
       let userNavigated = false;
@@ -578,7 +602,7 @@
         document.documentElement.dataset.theme = theme;
         themeToggle.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
         themeToggle.setAttribute('aria-pressed', String(theme === 'light'));
-        document.querySelector('meta[name="theme-color"]').content = theme === 'dark' ? '#101318' : '#f5f7fa';
+        document.querySelector('meta[name="theme-color"]').content = theme === 'dark' ? '#07090c' : '#e8edf1';
       };
       applyTheme(document.documentElement.dataset.theme || 'dark');
       themeToggle.addEventListener('click', () => {
@@ -604,20 +628,20 @@
           const h = height;
           const base = context.createLinearGradient(0, 0, w, h);
           if (light) {
-            base.addColorStop(0, '#f5f7fa');
-            base.addColorStop(0.58, '#e7eff9');
-            base.addColorStop(1, '#d9e4f5');
+            base.addColorStop(0, '#f3f5f7');
+            base.addColorStop(0.58, '#e7edf2');
+            base.addColorStop(1, '#dce3ea');
           } else {
-            base.addColorStop(0, '#101318');
-            base.addColorStop(0.58, '#101a2b');
-            base.addColorStop(1, '#09162a');
+            base.addColorStop(0, '#0c0e11');
+            base.addColorStop(0.58, '#12161c');
+            base.addColorStop(1, '#0a0e12');
           }
           context.fillStyle = base;
           context.fillRect(0, 0, w, h);
 
           const fields = light
-            ? [[0.75, 0.18, 0.62, '112,156,225', 0.12], [0.96, 0.8, 0.76, '154,133,211', 0.09], [0.62, 0.64, 0.48, '91,182,211', 0.11]]
-            : [[0.74, 0.13, 0.66, '42,103,186', 0.2], [0.95, 0.79, 0.7, '96,60,155', 0.16], [0.62, 0.58, 0.48, '20,151,190', 0.12]];
+            ? [[0.75, 0.18, 0.62, '112,140,170', 0.1], [0.96, 0.8, 0.76, '150,120,130', 0.07], [0.62, 0.64, 0.48, '90,140,130', 0.08]]
+            : [[0.74, 0.13, 0.55, '70,92,78', 0.14], [0.95, 0.79, 0.6, '120,52,62', 0.1], [0.62, 0.58, 0.42, '40,88,82', 0.08]];
           for (let i = 0; i < fields.length; i++) {
             const [x, y, radius, colour, alpha] = fields[i];
             const drift = Math.sin(time * 0.13 + i * 2.1) * 0.055;
@@ -636,10 +660,10 @@
           };
           for (let layer = 2; layer >= 0; layer--) {
             const ribbon = context.createLinearGradient(w * 0.33, 0, w, h);
-            const tint = light ? ['76,140,201', '102,114,194', '78,173,194'][layer] : ['62,140,229', '125,92,220', '48,185,211'][layer];
+            const tint = light ? ['76,120,150', '120,100,110', '78,140,130'][layer] : ['90,112,120', '140,92,100', '70,120,112'][layer];
             ribbon.addColorStop(0, `rgba(${tint},0)`);
-            ribbon.addColorStop(0.45, `rgba(${tint},${light ? 0.09 : 0.12})`);
-            ribbon.addColorStop(1, `rgba(${tint},${light ? 0.2 : 0.23})`);
+            ribbon.addColorStop(0.45, `rgba(${tint},${light ? 0.08 : 0.09})`);
+            ribbon.addColorStop(1, `rgba(${tint},${light ? 0.16 : 0.16})`);
             context.beginPath();
             for (let x = 0; x <= w + 16; x += 16) {
               const y = waveY(x, layer);
@@ -657,13 +681,13 @@
             const layer = strand % 3;
             const offset = (strand / strandCount - 0.5) * 0.26;
             const colour = light
-              ? ['54,112,178', '91,91,172', '44,142,170'][layer]
-              : ['104,179,255', '172,138,255', '81,215,231'][layer];
+              ? ['54,100,130', '110,90,100', '50,120,112'][layer]
+              : ['130,156,168', '176,130,138', '110,160,148'][layer];
             const fade = context.createLinearGradient(w * 0.23, 0, w, 0);
             fade.addColorStop(0, `rgba(${colour},0)`);
-            fade.addColorStop(0.43, `rgba(${colour},${light ? 0.16 : 0.23})`);
-            fade.addColorStop(0.8, `rgba(${colour},${light ? 0.35 : 0.48})`);
-            fade.addColorStop(1, `rgba(${colour},${light ? 0.08 : 0.15})`);
+            fade.addColorStop(0.43, `rgba(${colour},${light ? 0.14 : 0.16})`);
+            fade.addColorStop(0.8, `rgba(${colour},${light ? 0.28 : 0.3})`);
+            fade.addColorStop(1, `rgba(${colour},${light ? 0.07 : 0.1})`);
             context.beginPath();
             for (let x = 0; x <= w + 10; x += 10) {
               const y = waveY(x, layer, offset) + Math.sin(x / w * 6.5 + strand * 0.53 + time * 0.11) * h * 0.012;

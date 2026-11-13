@@ -15,9 +15,11 @@ favicons linked by Cinch and WWF. PayPal's current favicon retains the
 favicon pixels. Ko-fi/Patreon/Streamlabs/Cinch/Rampage/WWF were downloaded from
 their own published asset links; PayPal/Throne/Red Cross are cached site favicons
 from Google's s2 service. All are served locally, not requested by visitors.
-USDC uses Circle's unmodified token SVG from the official pressroom brand kit:
-https://6778953.fs1.hubspotusercontent-na1.net/hubfs/6778953/Pressroom/brandkit/logo-downloads/usdc.zip.
-Tether uses the CC0 cryptocurrency-icons color variant.
+Crypto buttons name Bitcoin, Ethereum, Solana, Tron, and Stellar only.
+Bitcoin, Ethereum, and Solana keep their existing monochrome marks. Tron uses
+the official triangular icon from the Tron.network logo. Stellar uses the
+historical rocket mark. All five are forced white in dark mode and black in
+light mode, the same idea as the Wallstreet Common mark following the theme.
 
 Scale groups explicit domain rows separately from services in the same board.
 The wheel has one Domains segment; it sums the displayed per-domain budgets
@@ -88,22 +90,29 @@ JSON. JPY and KRW display no fractional units; dollar and yen prefixes keep
 different currencies distinguishable in amounts. The visible subtitle says
 "One lab in Saskatoon, building" and retains its word scroller.
 
-`assets/donation-wallets.json` is a snapshot of the existing public recipients,
-not credentials or donor records. It avoids requiring Omerta login or widening
+`assets/donation-wallets.json` is a snapshot of the public recipients, not
+credentials or donor records. It avoids requiring Omerta login or widening
 the shared API's CORS policy. Recheck the public configuration before changing
 recipients. Crypto buttons copy the verified recipient directly and briefly
-show a brief confirmation outline. Labels contain only the asset name and
-($TICKER); an accessible status announces success or failure without changing
-those labels or adding visible wallet panels. Recipient networks remain
-validated in the wallet configuration; this presentation change does not
-alter any address or token.
+show a confirmation outline. Labels are the chain name only, with no ticker.
+An accessible status announces success or failure without changing those
+labels or adding visible wallet panels. Recipient networks remain validated
+in the wallet configuration.
 
-Tether ($USDT) uses the existing Ethereum recipient, with the ERC-20 USD₮
-contract checked against https://tether.to/en/supported-protocols/. The original
-seven recipients remain unchanged. Its icon is from
-https://github.com/spothq/cryptocurrency-icons/blob/master/svg/black/usdt.svg
-(CC0-1.0). Partners appear before Canada; Lis-Skins and XPlay.gg both use the
-owner-supplied MOBS2R code and link to their homepages.
+Bitcoin, Ethereum, and Solana keep the recipients published by the public
+configuration on 2026-11-06. Tron and Stellar were not in that configuration
+or on the previous page; their recipients are the ones supplied for this
+page. Avalanche, Polygon, USD Coin, ApeCoin, and Tether buttons are removed.
+The dropped EVM entries shared the Ethereum address, which remains only on
+Ethereum. Partners appear before Canada; Lis-Skins and XPlay.gg both use the
+owner-supplied MOBS2R code and link to their homepages. The Canada group
+names Red Cross, WWF, Salvation Army, and Extra Life without a Donate caption.
+The Salvation Army mark is the red shield cropped from the official
+salvationarmy.ca header SVG. Extra Life uses the official yellow controller
+mark from extra-life.org. Both stay full colour, like the Red Cross cross
+and the WWF panda.
+Support includes Boosty at https://boosty.to/mobs2r. Skins, directly below
+crypto, links Steam and SuperTripLand.
 
 Partner favicon sources: Lis-Skins' https://lis-skins.com/favicon.ico (converted
 losslessly to a local PNG), and Google's cached favicon for xplay.gg via
@@ -125,8 +134,7 @@ public contact addresses are biz@illicit.page and promo@illicit.page. The
 support ticket embed and standalone link have been removed from this site;
 existing private ticket records are preserved in Illicit API.
 
-The three world icons reuse their actual marks from the world cards. Avalanche's
-mark comes from https://www.avalanche.com/favicon-light.svg and ApeCoin's from
-https://apecoin.com/favicon.png. The manifest and embedded page share the Illicit
-favicon. The embed script explicitly sets the outer favicon to the same public
-PNG; the mmm.page Site Icon setting can also use that PNG as a no-script fallback.
+The three world icons reuse their actual marks from the world cards. The manifest
+and embedded page share the Illicit favicon. The embed script explicitly sets the
+outer favicon to the same public PNG; the mmm.page Site Icon setting can also use
+that PNG as a no-script fallback.

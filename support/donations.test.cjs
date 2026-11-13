@@ -7,8 +7,7 @@ const config = JSON.parse(fs.readFileSync(path.join(__dirname, '../assets/donati
 function fixture() {
   const status = { textContent: '' };
   const buttons = config.chains.map(chain => {
-    const names = { btc: 'Bitcoin', eth: 'Ethereum', sol: 'Solana', avax: 'Avalanche', pol: 'Polygon', usdc: 'USD Coin', ape: 'ApeCoin', usdt: 'Tether' };
-    const label = { textContent: `${names[chain.id]} ($${chain.symbol})` };
+    const label = { textContent: chain.name };
     return { dataset: { cryptoWallet: chain.id }, label, attributes: {}, disabled: true,
       querySelector: () => label, setAttribute(name, value) { this.attributes[name] = value; } };
   });
@@ -32,12 +31,13 @@ test('each crypto button copies its exact existing recipient and briefly confirm
     assert.equal(copied.at(-1), config.chains[i].address);
     assert.equal(button.dataset.copyState, 'copied');
     assert.equal(app.status.textContent, `${button.label.textContent} address copied.`);
-    assert.match(button.label.textContent, /\(\$[A-Z]+\)$/);
+    assert.equal(button.label.textContent, config.chains[i].name);
+    assert.doesNotMatch(button.label.textContent, /\$|\(/);
     resets.at(-1)();
     assert.equal(button.dataset.copyState, undefined);
-    assert.match(button.label.textContent, /\(\$[A-Z]+\)$/);
+    assert.equal(button.label.textContent, config.chains[i].name);
   }
-  assert.equal(copied.length, 8);
+  assert.equal(copied.length, 5);
 });
 
 test('unavailable or invalid wallet data never enables copying', async () => {
@@ -46,7 +46,7 @@ test('unavailable or invalid wallet data never enables copying', async () => {
     const app = fixture();
     await mountDonations(app.root, { fetcher: async () => response });
     assert.ok(app.buttons.every(button => button.disabled && !button.onclick));
-    assert.ok(app.buttons.every(button => /\(\$[A-Z]+\)$/.test(button.label.textContent)));
+    assert.ok(app.buttons.every(button => button.label.textContent === config.chains.find(chain => chain.id === button.dataset.cryptoWallet).name));
   }
 });
 
@@ -74,6 +74,6 @@ test('copy failure gives an error state, not a false Copied confirmation or chan
     clipboard: { writeText: async () => { throw Error('Denied'); } }, schedule: () => {}, cancel: () => {} });
   await app.buttons[0].onclick();
   assert.equal(app.buttons[0].dataset.copyState, 'error');
-  assert.equal(app.buttons[0].label.textContent, 'Bitcoin ($BTC)');
+  assert.equal(app.buttons[0].label.textContent, 'Bitcoin');
   assert.match(app.status.textContent, /Could not copy/);
 });
