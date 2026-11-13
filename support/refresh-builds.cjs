@@ -2,6 +2,7 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
+const { hardenDirectory } = require('./harden-html.cjs');
 
 const root = path.resolve(__dirname, '..');
 const outputDir = path.resolve(process.argv[2] || path.join(root, '_site'));
@@ -24,6 +25,8 @@ function stampPageBuild(dir, commit) {
 }
 
 async function main() {
+  // GitHub Pages cannot send headers: add the CSP <meta> to the published copy.
+  if (fs.existsSync(path.join(outputDir, 'index.html'))) hardenDirectory(outputDir);
   const builds = { ...fallback };
   const siteCommit = String(process.env.GITHUB_SHA || '');
   if (/^[a-f0-9]{40}$/i.test(siteCommit)) builds.platform = siteCommit.toLowerCase();

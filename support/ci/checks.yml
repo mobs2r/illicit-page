@@ -1,0 +1,33 @@
+name: Checks
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Unit and content tests
+        run: node --test support/*.test.cjs
+      - name: Build the same artifact the deploy publishes
+        run: |
+          mkdir -p _site
+          cp index.html manifest.webmanifest _site/
+          cp -a assets _site/assets
+          node support/refresh-builds.cjs _site
+      - name: Check JSON and module syntax
+        run: |
+          for f in builds.json manifest.webmanifest assets/*.json; do node -e "JSON.parse(require('fs').readFileSync('$f','utf8'))" || exit 1; done
+          for f in assets/*.mjs; do node --check "$f" || exit 1; done
