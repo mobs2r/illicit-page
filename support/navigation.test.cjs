@@ -60,6 +60,16 @@ test('Repacks sits between Mods and Scale in both navs, the page, and the embed 
   const embed = fs.readFileSync(path.join(__dirname, '../mmm-embed.html'), 'utf8');
   assert.match(embed, /#\(\?:home\|platform\|worlds\|mods\|repacks\|funds\|donate\|about\|contact\|crypto-\(\?:btc\|eth\|sol\|tron\|stellar\)\)/);
 });
+test('workshop titles wrap in full beside a top-aligned icon, with stats sharing the row bottom', () => {
+  assert.match(html, /\.mod-grid > li \{ display:flex; min-width:0; \}/);
+  assert.match(html, /\.mod-grid a \{ display:flex; flex:1; flex-direction:column;/);
+  assert.match(html, /\.mod-heading \{ display:flex; align-items:flex-start; gap:8px; min-width:0; \}/);
+  assert.match(html, /\.mod-name \{[^}]*white-space:normal;[^}]*overflow:visible;[^}]*text-overflow:clip;[^}]*overflow-wrap:break-word;/);
+  assert.doesNotMatch(html, /\.mod-name[^{]*\{[^}]*(?:ellipsis|line-clamp|nowrap)/);
+  assert.match(html, /\.mod-heading \+ \.mod-stat \{ margin-top:auto; \}/);
+  assert.match(html, /@media \(max-width:900px\) \{[\s\S]*?\.mod-grid \{ grid-template-columns:repeat\(2,minmax\(0,1fr\)\); \}/);
+  assert.match(html, /@media \(max-width:620px\) \{[\s\S]*?\.mod-grid[\s\S]*?grid-template-columns:1fr;/);
+});
 test('homepage navigation reaches real sections and documentation instead of reopening itself', () => {
   for (const [label, id] of [['Explore', 'worlds'], ['Platform', 'platform']]) {
     assert.match(html, new RegExp(`href="#${id}"( aria-current="page")?>${label}`));

@@ -148,13 +148,15 @@
     .mods-group + .mods-group { margin-top:28px; }
     .mods-group h3,.panel-label { margin:0 0 12px; color:var(--gold); font-family:var(--mono); font-size:12px; font-weight:400; letter-spacing:.14em; text-transform:uppercase; }
     .panel-label { margin-top:28px; }
-    .mod-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:0; padding:0; list-style:none; }
-    .mod-grid a { display:flex; flex-direction:column; gap:6px; min-width:0; padding:18px 20px; border:1px solid var(--line); border-radius:14px; background:linear-gradient(145deg,#1c2229,#15191f); text-decoration:none; transition:border-color .2s ease,transform .2s ease; }
+    .mod-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:0; padding:0; list-style:none; align-items:stretch; }
+    .mod-grid > li { display:flex; min-width:0; }
+    .mod-grid a { display:flex; flex:1; flex-direction:column; gap:6px; width:100%; min-width:0; padding:18px 20px; border:1px solid var(--line); border-radius:14px; background:linear-gradient(145deg,#1c2229,#15191f); text-decoration:none; transition:border-color .2s ease,transform .2s ease; }
     .mod-grid a:hover { transform:translateY(-2px); border-color:#9daab8; }
-    .mod-heading { display:flex; align-items:center; gap:8px; min-width:0; }
-    .mod-game { width:20px; height:20px; flex:0 0 auto; border-radius:4px; }
-    .mod-name { min-width:0; font-size:18px; letter-spacing:-.02em; }
+    .mod-heading { display:flex; align-items:flex-start; gap:8px; min-width:0; }
+    .mod-game { width:20px; height:20px; flex:0 0 auto; margin-top:2px; border-radius:4px; }
+    .mod-name { min-width:0; flex:1; font-size:18px; line-height:1.3; letter-spacing:-.02em; white-space:normal; overflow:visible; text-overflow:clip; overflow-wrap:break-word; }
     .mod-stat { color:var(--muted); font-size:14px; }
+    .mod-heading + .mod-stat { margin-top:auto; }
     .skip { position:absolute; left:16px; top:-48px; z-index:40; padding:10px 14px; border-radius:9px; background:var(--blue); color:#101318; text-decoration:none; }
     .skip:focus { top:12px; }
     .site-nav { display:flex; flex-wrap:wrap; gap:4px 18px; }
@@ -323,6 +325,7 @@
       .funds-board { grid-template-columns:1fr; }
       .funds-top { grid-template-columns:1fr; }
       .support-grid { grid-template-columns:1fr 1fr; }
+      .mod-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
       .site-nav { order:3; width:100%; padding-bottom:8px; }
     }
     @media (max-width:620px) {
