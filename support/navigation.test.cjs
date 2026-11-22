@@ -19,6 +19,57 @@ test('Apps replaces the public Worlds label without breaking existing section li
   assert.match(html, /id="worlds" aria-labelledby="worlds-title"/);
   assert.doesNotMatch(html, />Worlds<|Many worlds\./);
 });
+test('Repacks sits between Mods and Scale in both navs, the page, and the embed hash allowlist', () => {
+  const header = html.match(/<nav class="site-nav"[\s\S]*?<\/nav>/)[0];
+  const footer = html.match(/<nav class="illicit-links"[\s\S]*?<\/nav>/)[0];
+  for (const nav of [header, footer]) {
+    const mods = nav.indexOf('href="#mods">Mods');
+    const repacks = nav.indexOf('href="#repacks">Repacks');
+    const scale = nav.indexOf('href="#funds">Scale');
+    assert.ok(mods !== -1 && repacks !== -1 && scale !== -1, nav.slice(0, 80));
+    assert.ok(mods < repacks && repacks < scale);
+  }
+  const modsSection = html.indexOf('id="mods"');
+  const repacksSection = html.indexOf('id="repacks" aria-labelledby="repacks-title"');
+  const fundsSection = html.indexOf('id="funds"');
+  assert.ok(modsSection < repacksSection && repacksSection < fundsSection);
+  const section = html.slice(repacksSection, fundsSection);
+  assert.match(section, /id="repacks-title">Repacks</);
+  assert.match(section, /class="mod-grid"/);
+  const cards = [
+    ['3817814674', 'White Knuckle Prop Pack', '60 Active Subscribers', 'Last Updated Oct 13, 2026', 'white-knuckle-prop-pack.webp', 'white-knuckle-prop-pack.jpg'],
+    ['3832775332', 'Hood Warfare Character Pack (NPCs, Players, &amp; Dolls)', '19 Active Subscribers', 'Last Updated Nov 9, 2026', 'hood-warfare-character-pack.webp', 'hood-warfare-character-pack.jpg'],
+    ['3832776416', 'World War Legion Characters (Players &amp; Dolls)', '18 Active Subscribers', 'Last Updated Nov 3, 2026', 'world-war-legion-characters.webp', 'world-war-legion-characters.png'],
+    ['3832764386', 'Milo Character Pack (NPCs, Players, &amp; Dolls)', '13 Active Subscribers', 'Last Updated Nov 4, 2026', 'milo-character-pack.webp', 'milo-character-pack.jpg']
+  ];
+  let cursor = 0;
+  for (const [id, name, subscribers, updated, webp, original] of cards) {
+    const card = section.indexOf(`filedetails/?id=${id}`);
+    assert.ok(card > cursor, id);
+    cursor = card;
+    const item = section.slice(card, section.indexOf('</li>', card));
+    assert.match(item, new RegExp(`class="mod-name">${name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}</span>`));
+    assert.match(item, new RegExp(subscribers));
+    assert.match(item, new RegExp(updated));
+    assert.match(item, /alt="Garry's Mod"/);
+    assert.match(item, new RegExp(`srcset="\\./assets/mods/${webp}"`));
+    assert.match(item, new RegExp(`src="\\./assets/mods/${original}"`));
+    assert.ok(fs.existsSync(path.join(__dirname, '../assets/mods', webp)));
+    assert.ok(fs.existsSync(path.join(__dirname, '../assets/mods', original)));
+  }
+  const embed = fs.readFileSync(path.join(__dirname, '../mmm-embed.html'), 'utf8');
+  assert.match(embed, /#\(\?:home\|platform\|worlds\|mods\|repacks\|funds\|donate\|about\|contact\|crypto-\(\?:btc\|eth\|sol\|tron\|stellar\)\)/);
+});
+test('workshop titles wrap in full beside a top-aligned icon, with stats sharing the row bottom', () => {
+  assert.match(html, /\.mod-grid > li \{ display:flex; min-width:0; \}/);
+  assert.match(html, /\.mod-grid a \{ display:flex; flex:1; flex-direction:column;/);
+  assert.match(html, /\.mod-heading \{ display:flex; align-items:flex-start; gap:8px; min-width:0; \}/);
+  assert.match(html, /\.mod-name \{[^}]*white-space:normal;[^}]*overflow:visible;[^}]*text-overflow:clip;[^}]*overflow-wrap:break-word;/);
+  assert.doesNotMatch(html, /\.mod-name[^{]*\{[^}]*(?:ellipsis|line-clamp|nowrap)/);
+  assert.match(html, /\.mod-heading \+ \.mod-stat \{ margin-top:auto; \}/);
+  assert.match(html, /@media \(max-width:900px\) \{[\s\S]*?\.mod-grid \{ grid-template-columns:repeat\(2,minmax\(0,1fr\)\); \}/);
+  assert.match(html, /@media \(max-width:620px\) \{[\s\S]*?\.mod-grid[\s\S]*?grid-template-columns:1fr;/);
+});
 test('homepage navigation reaches real sections and documentation instead of reopening itself', () => {
   for (const [label, id] of [['Explore', 'worlds'], ['Platform', 'platform']]) {
     assert.match(html, new RegExp(`href="#${id}"( aria-current="page")?>${label}`));

@@ -18,7 +18,7 @@ test('Questrial is self-hosted, preloaded and licensed; no render-blocking font 
 
 test('every Workshop preview offers a smaller WebP with the original as fallback', () => {
   const shots = [...html.matchAll(/<picture><source srcset="([^"]+\.webp)" type="image\/webp"><img class="mod-shot" src="([^"]+)"[^>]*loading="lazy"[^>]*><\/picture>/g)];
-  assert.equal(shots.length, 3);
+  assert.equal(shots.length, 7);
   for (const [, webp, original] of shots) {
     assert.ok(fs.statSync(local(webp)).size < fs.statSync(local(original)).size, webp);
   }

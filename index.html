@@ -148,13 +148,15 @@
     .mods-group + .mods-group { margin-top:28px; }
     .mods-group h3,.panel-label { margin:0 0 12px; color:var(--gold); font-family:var(--mono); font-size:12px; font-weight:400; letter-spacing:.14em; text-transform:uppercase; }
     .panel-label { margin-top:28px; }
-    .mod-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:0; padding:0; list-style:none; }
-    .mod-grid a { display:flex; flex-direction:column; gap:6px; min-width:0; padding:18px 20px; border:1px solid var(--line); border-radius:14px; background:linear-gradient(145deg,#1c2229,#15191f); text-decoration:none; transition:border-color .2s ease,transform .2s ease; }
+    .mod-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:0; padding:0; list-style:none; align-items:stretch; }
+    .mod-grid > li { display:flex; min-width:0; }
+    .mod-grid a { display:flex; flex:1; flex-direction:column; gap:6px; width:100%; min-width:0; padding:18px 20px; border:1px solid var(--line); border-radius:14px; background:linear-gradient(145deg,#1c2229,#15191f); text-decoration:none; transition:border-color .2s ease,transform .2s ease; }
     .mod-grid a:hover { transform:translateY(-2px); border-color:#9daab8; }
-    .mod-heading { display:flex; align-items:center; gap:8px; min-width:0; }
-    .mod-game { width:20px; height:20px; flex:0 0 auto; border-radius:4px; }
-    .mod-name { min-width:0; font-size:18px; letter-spacing:-.02em; }
+    .mod-heading { display:flex; align-items:flex-start; gap:8px; min-width:0; }
+    .mod-game { width:20px; height:20px; flex:0 0 auto; margin-top:2px; border-radius:4px; }
+    .mod-name { min-width:0; flex:1; font-size:18px; line-height:1.3; letter-spacing:-.02em; white-space:normal; overflow:visible; text-overflow:clip; overflow-wrap:break-word; }
     .mod-stat { color:var(--muted); font-size:14px; }
+    .mod-heading + .mod-stat { margin-top:auto; }
     .skip { position:absolute; left:16px; top:-48px; z-index:40; padding:10px 14px; border-radius:9px; background:var(--blue); color:#101318; text-decoration:none; }
     .skip:focus { top:12px; }
     .site-nav { display:flex; flex-wrap:wrap; gap:4px 18px; }
@@ -323,6 +325,7 @@
       .funds-board { grid-template-columns:1fr; }
       .funds-top { grid-template-columns:1fr; }
       .support-grid { grid-template-columns:1fr 1fr; }
+      .mod-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
       .site-nav { order:3; width:100%; padding-bottom:8px; }
     }
     @media (max-width:620px) {
@@ -456,7 +459,7 @@
   <header class="site-header">
     <div class="shell header-inner">
       <a class="brand" href="./" aria-label="Illicit Corporation home"><span class="brand-mark" aria-hidden="true">I</span><span class="brand-copy">ILLICIT <small>CORPORATION</small></span></a>
-      <nav class="site-nav" id="site-nav" aria-label="On this page"><span class="nav-indicator" aria-hidden="true"></span><a href="#platform">Platform</a><a href="#worlds">Apps</a><a href="#mods">Mods</a><a href="#funds">Scale</a><a href="#donate">Donate</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+      <nav class="site-nav" id="site-nav" aria-label="On this page"><span class="nav-indicator" aria-hidden="true"></span><a href="#platform">Platform</a><a href="#worlds">Apps</a><a href="#mods">Mods</a><a href="#repacks">Repacks</a><a href="#funds">Scale</a><a href="#donate">Donate</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
       <div class="header-tools"><button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="Menu"><span></span></button><button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch color theme"><svg class="theme-sun" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg><svg class="theme-moon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg></button><a class="header-link" href="https://github.com/mobs2r" target="_blank" rel="noopener noreferrer" aria-label="GitHub" title="GitHub"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.21-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.04-2.2-.82-2.2-.82-.44 1.1-.16 1.92.08 2.12-.51.56-.82 1.27-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.19.45.68.71 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"/></svg></a></div>
     </div>
   </header>
@@ -494,6 +497,17 @@
         <li><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3362030272" target="_blank" rel="noopener noreferrer"><span class="mod-frame"><picture><source srcset="./assets/mods/webfishing-name-tags.webp" type="image/webp"><img class="mod-shot" src="./assets/mods/webfishing-name-tags.jpg" width="1024" height="1024" alt="Workshop preview of WEBFISHING Name Tags" loading="lazy" decoding="async"></picture></span><span class="mod-heading"><img class="mod-game" src="./assets/icons/garrys-mod.jpg" width="32" height="32" alt="Garry's Mod"><span class="mod-name">WEBFISHING Name Tags</span></span><span class="mod-stat">552 Active Subscribers</span><span class="mod-stat">Last Updated Feb 15, 2026</span></a></li>
         <li><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3324247572" target="_blank" rel="noopener noreferrer"><span class="mod-frame"><picture><source srcset="./assets/mods/junk-jet.webp" type="image/webp"><img class="mod-shot" src="./assets/mods/junk-jet.jpg" width="720" height="720" alt="Workshop preview of Junk Jet in Tool Gun" loading="lazy" decoding="async"></picture></span><span class="mod-heading"><img class="mod-game" src="./assets/icons/garrys-mod.jpg" width="32" height="32" alt="Garry's Mod"><span class="mod-name">Junk Jet in Tool Gun</span></span><span class="mod-stat">127 Active Subscribers</span><span class="mod-stat">Last Updated Jan 13, 2025</span></a></li>
         <li><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3346062106" target="_blank" rel="noopener noreferrer"><span class="mod-frame"><picture><source srcset="./assets/mods/neon-error-sign.webp" type="image/webp"><img class="mod-shot" src="./assets/mods/neon-error-sign.gif" width="526" height="526" alt="Workshop preview of Neon Error Sign" loading="lazy" decoding="async"></picture></span><span class="mod-heading"><img class="mod-game" src="./assets/icons/garrys-mod.jpg" width="32" height="32" alt="Garry's Mod"><span class="mod-name">Neon Error Sign</span></span><span class="mod-stat">45 Active Subscribers</span><span class="mod-stat">Last Updated Oct 9, 2024</span></a></li>
+      </ul>
+    </section>
+    <section class="section mods shell" id="repacks" aria-labelledby="repacks-title">
+      <header class="section-head mods-head">
+        <h2 id="repacks-title">Repacks</h2>
+      </header>
+      <ul class="mod-grid">
+        <li><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3817814674" target="_blank" rel="noopener noreferrer"><span class="mod-frame"><picture><source srcset="./assets/mods/white-knuckle-prop-pack.webp" type="image/webp"><img class="mod-shot" src="./assets/mods/white-knuckle-prop-pack.jpg" width="512" height="512" alt="Workshop preview of White Knuckle Prop Pack" loading="lazy" decoding="async"></picture></span><span class="mod-heading"><img class="mod-game" src="./assets/icons/garrys-mod.jpg" width="32" height="32" alt="Garry's Mod"><span class="mod-name">White Knuckle Prop Pack</span></span><span class="mod-stat">60 Active Subscribers</span><span class="mod-stat">Last Updated Oct 13, 2026</span></a></li>
+        <li><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3832775332" target="_blank" rel="noopener noreferrer"><span class="mod-frame"><picture><source srcset="./assets/mods/hood-warfare-character-pack.webp" type="image/webp"><img class="mod-shot" src="./assets/mods/hood-warfare-character-pack.jpg" width="512" height="512" alt="Workshop preview of Hood Warfare Character Pack (NPCs, Players, &amp; Dolls)" loading="lazy" decoding="async"></picture></span><span class="mod-heading"><img class="mod-game" src="./assets/icons/garrys-mod.jpg" width="32" height="32" alt="Garry's Mod"><span class="mod-name">Hood Warfare Character Pack (NPCs, Players, &amp; Dolls)</span></span><span class="mod-stat">19 Active Subscribers</span><span class="mod-stat">Last Updated Nov 9, 2026</span></a></li>
+        <li><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3832776416" target="_blank" rel="noopener noreferrer"><span class="mod-frame"><picture><source srcset="./assets/mods/world-war-legion-characters.webp" type="image/webp"><img class="mod-shot" src="./assets/mods/world-war-legion-characters.png" width="512" height="512" alt="Workshop preview of World War Legion Characters (Players &amp; Dolls)" loading="lazy" decoding="async"></picture></span><span class="mod-heading"><img class="mod-game" src="./assets/icons/garrys-mod.jpg" width="32" height="32" alt="Garry's Mod"><span class="mod-name">World War Legion Characters (Players &amp; Dolls)</span></span><span class="mod-stat">18 Active Subscribers</span><span class="mod-stat">Last Updated Nov 3, 2026</span></a></li>
+        <li><a href="https://steamcommunity.com/sharedfiles/filedetails/?id=3832764386" target="_blank" rel="noopener noreferrer"><span class="mod-frame"><picture><source srcset="./assets/mods/milo-character-pack.webp" type="image/webp"><img class="mod-shot" src="./assets/mods/milo-character-pack.jpg" width="600" height="600" alt="Workshop preview of Milo Character Pack (NPCs, Players, &amp; Dolls)" loading="lazy" decoding="async"></picture></span><span class="mod-heading"><img class="mod-game" src="./assets/icons/garrys-mod.jpg" width="32" height="32" alt="Garry's Mod"><span class="mod-name">Milo Character Pack (NPCs, Players, &amp; Dolls)</span></span><span class="mod-stat">13 Active Subscribers</span><span class="mod-stat">Last Updated Nov 4, 2026</span></a></li>
       </ul>
     </section>
     <section class="section shell" id="funds" aria-labelledby="funds-title">
@@ -594,7 +608,7 @@
   <footer class="site-footer">
     <div class="shell illicit-footer">
       <div class="illicit-lockup"><a class="illicit-mark" href="#home">ILLICIT<small>CORPORATION</small></a></div>
-      <nav class="illicit-links" aria-label="Illicit Corporation"><a href="#platform">Platform</a><a href="#worlds">Apps</a><a href="#mods">Mods</a><a href="#funds">Scale</a><a href="#donate">Donate</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+      <nav class="illicit-links" aria-label="Illicit Corporation"><a href="#platform">Platform</a><a href="#worlds">Apps</a><a href="#mods">Mods</a><a href="#repacks">Repacks</a><a href="#funds">Scale</a><a href="#donate">Donate</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
     </div>
   </footer>
   <script type="module">
