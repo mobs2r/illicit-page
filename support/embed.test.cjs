@@ -29,6 +29,8 @@ test('public embed has one viewport scroll owner and matching favicon', () => {
   assert.match(app.document.documentElement.style.cssText, /overflow:hidden/);
   assert.equal(app.src(), 'https://mobs2r.github.io/illicit-page/#donate');
   assert.equal(app.icon.href, 'https://mobs2r.github.io/illicit-page/assets/favicon.png');
+  app.location.hash = '#repacks'; app.events.hashchange();
+  assert.equal(app.src(), 'https://mobs2r.github.io/illicit-page/#repacks');
   app.location.hash = '#contact'; app.events.hashchange();
   assert.equal(app.src(), 'https://mobs2r.github.io/illicit-page/#contact');
   app.location.hash = '#untrusted'; app.events.hashchange();
