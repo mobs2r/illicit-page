@@ -38,9 +38,9 @@ test('Repacks sits between Mods and Scale in both navs, the page, and the embed 
   assert.match(section, /class="mod-grid"/);
   const cards = [
     ['3817814674', 'White Knuckle Prop Pack', '60 Active Subscribers', 'Last Updated Oct 13, 2026', 'white-knuckle-prop-pack.webp', 'white-knuckle-prop-pack.jpg'],
-    ['3832775332', 'Hood Warfare Character Pack (NPCs, Players, &amp; Dolls)', '19 Active Subscribers', 'Last Updated Nov 9, 2026', 'hood-warfare-character-pack.webp', 'hood-warfare-character-pack.jpg'],
-    ['3832776416', 'World War Legion Characters (Players &amp; Dolls)', '18 Active Subscribers', 'Last Updated Nov 3, 2026', 'world-war-legion-characters.webp', 'world-war-legion-characters.png'],
-    ['3832764386', 'Milo Character Pack (NPCs, Players, &amp; Dolls)', '13 Active Subscribers', 'Last Updated Nov 4, 2026', 'milo-character-pack.webp', 'milo-character-pack.jpg']
+    ['3832775332', 'Hood Warfare Character Pack', '19 Active Subscribers', 'Last Updated Nov 9, 2026', 'hood-warfare-character-pack.webp', 'hood-warfare-character-pack.jpg'],
+    ['3832776416', 'World War Legion Character Pack', '18 Active Subscribers', 'Last Updated Nov 3, 2026', 'world-war-legion-characters.webp', 'world-war-legion-characters.png'],
+    ['3832764386', 'Milo Character Pack', '13 Active Subscribers', 'Last Updated Nov 4, 2026', 'milo-character-pack.webp', 'milo-character-pack.jpg']
   ];
   let cursor = 0;
   for (const [id, name, subscribers, updated, webp, original] of cards) {
@@ -67,6 +67,8 @@ test('workshop titles wrap in full beside a top-aligned icon, with stats sharing
   assert.match(html, /\.mod-name \{[^}]*white-space:normal;[^}]*overflow:visible;[^}]*text-overflow:clip;[^}]*overflow-wrap:break-word;/);
   assert.doesNotMatch(html, /\.mod-name[^{]*\{[^}]*(?:ellipsis|line-clamp|nowrap)/);
   assert.match(html, /\.mod-heading \+ \.mod-stat \{ margin-top:auto; \}/);
+  assert.match(html, /\.mod-shot \{[^}]*object-fit:contain;[^}]*object-position:center;/);
+  assert.doesNotMatch(html, /object-fit:cover|Players, &amp; Dolls|Players &amp; Dolls|World War Legion Characters/);
   assert.match(html, /@media \(max-width:900px\) \{[\s\S]*?\.mod-grid \{ grid-template-columns:repeat\(2,minmax\(0,1fr\)\); \}/);
   assert.match(html, /@media \(max-width:620px\) \{[\s\S]*?\.mod-grid[\s\S]*?grid-template-columns:1fr;/);
 });
