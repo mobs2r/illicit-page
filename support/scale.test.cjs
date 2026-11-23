@@ -174,6 +174,9 @@ test('Skins follows crypto, Boosty joins support, and Canada charities have no D
   assert.match(canada, /<span>Salvation Army<\/span>/);
   assert.match(canada, /data-brand="extra-life" href="https:\/\/extra-life\.org\/donate"/);
   assert.match(canada, /<span>Extra Life<\/span>/);
+  assert.match(html, /\.support-grid \.pill\[data-brand="salvation-army"\] img \{[^}]*width:34px; height:40px;[^}]*border-radius:0;[^}]*background:transparent/);
+  assert.match(html, /\.support-grid \.pill\[data-brand="extra-life"\] img \{[^}]*width:34px; height:34px;[^}]*border-radius:0;[^}]*background:transparent/);
+  assert.doesNotMatch(html, /data-brand="salvation-army"\] img \{[^}]*background:#fff/);
 });
 
 test('domain categories combine into exactly one wheel chunk in every currency', async () => {
