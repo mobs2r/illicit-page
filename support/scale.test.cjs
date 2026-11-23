@@ -177,6 +177,9 @@ test('Skins follows crypto, Boosty joins support, and Canada charities have no D
   assert.match(html, /\.support-grid \.pill\[data-brand="salvation-army"\] img \{[^}]*width:34px; height:40px;[^}]*border-radius:0;[^}]*background:transparent/);
   assert.match(html, /\.support-grid \.pill\[data-brand="extra-life"\] img \{[^}]*width:34px; height:34px;[^}]*border-radius:0;[^}]*background:transparent/);
   assert.doesNotMatch(html, /data-brand="salvation-army"\] img \{[^}]*background:#fff/);
+  const shield = fs.readFileSync(path.join(__dirname, '../assets/icons/salvation-army.svg'), 'utf8');
+  assert.match(shield, /viewBox="17\.3515625 3\.51171875 158\.57421875 187\.0859375"/);
+  assert.doesNotMatch(shield, /viewBox="0 0 158\.57422/);
 });
 
 test('domain categories combine into exactly one wheel chunk in every currency', async () => {
